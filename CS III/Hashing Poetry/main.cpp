@@ -8,20 +8,19 @@
 
 void cleaningString(std::string & nextToken); //function for creating a string free of 
 											  //	special characters, punctuation, and uppercases
-std::string returnCleanFileString(std::string filename);
+std::string fileToString(std::string filename);
 
 int main()
 {
-	string filename = "";										//initializing variable filename
-	//std::cout << "Enter filename to generate poem from: ";	//prompting user for filename
-	//std::cin >> filename;										//user inputs filename
-	filename = "green.txt"; //filename set for hardwiring testing
-	returnCleanFileString(filename);
+	std::string greenPoemText = fileToString("green.txt");		//greenPoemText now contains a toString() equivalent of green.txt
 
 	std::cin.get();	//just so things work on my machine
 }
 
-std::string returnCleanFileString(std::string filename)
+//================================================================================================================//
+//          Function to open file and accesses cleaningString to return a toString() version of the file          //
+//================================================================================================================//
+std::string fileToString(std::string filename)
 {
 	//-------------------------------------------------------
 	//checking that the file actually exists
@@ -55,6 +54,9 @@ std::string returnCleanFileString(std::string filename)
 	return completeString;
 }
 
+//===========================================================================================//
+//          Function to remove any non-alphanumeric characters and clear uppercases          //
+//===========================================================================================//
 void cleaningString(std::string & token)
 {
 	for (int i = 0; i < token.length();)
@@ -64,7 +66,7 @@ void cleaningString(std::string & token)
 		{
 			token.erase(i, 1);
 		}
-		//regardless of if the specific char is already lowercase, make sure everything is lowercase
+		//regardless of if the specific char is already lowercase, make ABSOLUTELY SURE everything is lowercase
 		else
 		{
 			token[i] = tolower(token[i]);
@@ -72,3 +74,4 @@ void cleaningString(std::string & token)
 		}
 	}
 }
+//=====================================================================================================
