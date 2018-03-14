@@ -78,24 +78,20 @@ int HashTable<HashKey, HashRecord>::findPos(const HashKey & x) const
 {
 	int offset = 1;
 	int iteration = 0;
-	int origPos = customHash1(x);
-	int index = origPos;
-	int customStep = customHash2(x);
+	int origPos = customHash1(x);		//computing the first hash
+	int index = origPos;				//creating a copy of origPos
+	int customStep = customHash2(x);	//computing the second hash
 
 	while (hashTable[index].info != EMPTY && hashTable[index].key != x)
 	{
-		index += offset;  // Compute ith probe
 		iteration = offset++ * customStep;                     
-		if (index >= (int)hashTable.size())    // Cheaper than  mod
-			index -= hashTable.size();
-
 		if ((origPos + iteration) > hashTable.size())
 		{
-			index = (origPos + iteration) % hashTable.size();
+			index = (origPos + iteration) % hashTable.size();	//dealing with second hashing
 		}
 		else
 		{
-			index = origPos + iteration;
+			index = origPos + iteration;	//not dealing with second hashing
 		}
 	}
 
