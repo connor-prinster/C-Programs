@@ -69,26 +69,41 @@ std::string HashTable<HashKey, HashRecord>::toString(int howMany)
 
 }
 
+//===========================//
+//IMPLEMENTING DOUBLE HASHING//
+//=================================================================================
 // return the subscript where x is located in the hash table.    
-// Quadratic probing is used.  Can you figure out why this implements quadratic probing?
 template <typename HashKey, typename HashRecord>
 int HashTable<HashKey, HashRecord>::findPos(const HashKey & x) const
 {
 	int offset = 1;
-	int currentPos = customHash1(x);
-	int secondPos = customHash2(x);
+	int iteration = 0;
+	int origPos = customHash1(x);
+	int index = origPos;
+	int customStep = customHash2(x);
 
-	while (hashTable[currentPos].info != EMPTY &&
-		hashTable[currentPos].key != x)
+	while (hashTable[index].info != EMPTY && hashTable[index].key != x)
 	{
-		currentPos += offset;  // Compute ith probe
-		offset += 2;                     
-		if (currentPos >= (int)hashTable.size())    // Cheaper than  mod
-			currentPos -= hashTable.size();
+		index += offset;  // Compute ith probe
+		iteration = offset++ * customStep;                     
+		if (index >= (int)hashTable.size())    // Cheaper than  mod
+			index -= hashTable.size();
+
+		if ((origPos + iteration) > hashTable.size())
+		{
+			index = (origPos + iteration) % hashTable.size();
+		}
+		else
+		{
+			index = origPos + iteration;
+		}
 	}
 
-	return currentPos;
+	return index;
 };
+//=================================================================================
+//							 //
+//===========================//
 
 // Remove all elements of the table by setting status to empty.
 // Have you seen the range based loop for accessing elements of a vector?
@@ -129,8 +144,8 @@ bool HashTable<HashKey, HashRecord>::isActive(int currentPos) const
 	return hashTable[currentPos].info == ACTIVE;
 };
 
-//========================
-//ACTUAL HASHING FUNCTIONS
+//========================//
+//ACTUAL HASHING FUNCTIONS//
 //=============================================================================================================================
 //---------------------
 //for finding first pos
@@ -138,12 +153,12 @@ bool HashTable<HashKey, HashRecord>::isActive(int currentPos) const
 template<typename HashKey, typename HashRecord>
 size_t HashTable<HashKey, HashRecord>::customHash1(const HashKey & x) const
 {
-	unsigned int hashKeyVal = 0;
+	unsigned int hashKeyVal1 = 0;
 	for (int i = 0; i < x.length(); i++)
 	{
-		(hashKeyVal << 7) ^ x[i] ^ hashKeyVal;	//the actual hash operation
+		(hashKeyVal1 << 7) ^ x[i] ^ hashKeyVal1;	//the actual hash operation
 	}
-	return (hashKeyVal % hashTable.size());	//returning the modified hashKeyVal mod the size of the table
+	return (hashKeyVal1 % hashTable.size());	//returning the modified hashKeyVal1 mod the size of the table
 };
 //----------------------
 //for finding second pos
@@ -151,9 +166,18 @@ size_t HashTable<HashKey, HashRecord>::customHash1(const HashKey & x) const
 template<typename HashKey, typename HashRecord>
 size_t HashTable<HashKey, HashRecord>::customHash2(const HashKey & x) const
 {
-
+	unsigned int hashKeyVal2 = 0;
+	for (int i = 0; i < x.length(); i++)
+	{
+		hashKeyVal2 = 29 * hashKeyVal2 + x[i]; 
+	}
+	unsigned int returnHashKeyVal2 = 44497 - (hashKeyVal2 % 44497);
+	return returnHashKeyVal2;
 }
 //=============================================================================================================================
+//						  //
+//========================//
+
 // Use lazy deletion to remove an element
 // Return boolean to indicate success of operation
 template <typename HashKey, typename HashRecord>
