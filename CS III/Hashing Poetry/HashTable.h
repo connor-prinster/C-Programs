@@ -47,7 +47,7 @@ private:
 	vector<HashEntry<HashKey, HashRecord>> hashTable;
 	int activeElements;
 	bool isActive(int currentPos) const;
-	size_t myhash(const HashKey & x) const;
+	size_t customHash(const HashKey & x) const;
 	int findPos(const HashKey & x) const;
 	void rehash();
 };
@@ -74,7 +74,7 @@ template <typename HashKey, typename HashRecord>
 int HashTable<HashKey, HashRecord>::findPos(const HashKey & x) const
 {
 	int offset = 1;
-	int currentPos = myhash(x);
+	int currentPos = customHash(x);
 
 	while (hashTable[currentPos].info != EMPTY &&
 		hashTable[currentPos].key != x)
@@ -127,12 +127,16 @@ bool HashTable<HashKey, HashRecord>::isActive(int currentPos) const
 	return hashTable[currentPos].info == ACTIVE;
 };
 
-// use built=in hash functions to find a location.
+//Custom Hash
 template<typename HashKey, typename HashRecord>
-size_t HashTable<HashKey, HashRecord>::myhash(const HashKey & x) const
+size_t HashTable<HashKey, HashRecord>::customHash(const HashKey & x) const
 {
-	static hash<HashKey> hf;
-	return hf(x) % hashTable.size();
+	unsigned int hashKeyVal = 0;
+	for (int i = 0; i < x.length(); i++)
+	{
+		(hashKeyVal << 7) ^ x[i] ^ hashKeyVal;	//the actual hash operation
+	}
+	return (hashKeyVal % hashTable.size());	//returning the modified hashKeyVal mod the size of the table
 };
 
 // Use lazy deletion to remove an element
