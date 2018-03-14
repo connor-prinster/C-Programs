@@ -47,7 +47,8 @@ private:
 	vector<HashEntry<HashKey, HashRecord>> hashTable;
 	int activeElements;
 	bool isActive(int currentPos) const;
-	size_t customHash(const HashKey & x) const;
+	size_t customHash1(const HashKey & x) const;
+	size_t customHash2(const HashKey & x) const;
 	int findPos(const HashKey & x) const;
 	void rehash();
 };
@@ -74,7 +75,8 @@ template <typename HashKey, typename HashRecord>
 int HashTable<HashKey, HashRecord>::findPos(const HashKey & x) const
 {
 	int offset = 1;
-	int currentPos = customHash(x);
+	int currentPos = customHash1(x);
+	int secondPos = customHash2(x);
 
 	while (hashTable[currentPos].info != EMPTY &&
 		hashTable[currentPos].key != x)
@@ -127,9 +129,14 @@ bool HashTable<HashKey, HashRecord>::isActive(int currentPos) const
 	return hashTable[currentPos].info == ACTIVE;
 };
 
-//Custom Hash
+//========================
+//ACTUAL HASHING FUNCTIONS
+//=============================================================================================================================
+//---------------------
+//for finding first pos
+//---------------------
 template<typename HashKey, typename HashRecord>
-size_t HashTable<HashKey, HashRecord>::customHash(const HashKey & x) const
+size_t HashTable<HashKey, HashRecord>::customHash1(const HashKey & x) const
 {
 	unsigned int hashKeyVal = 0;
 	for (int i = 0; i < x.length(); i++)
@@ -138,7 +145,15 @@ size_t HashTable<HashKey, HashRecord>::customHash(const HashKey & x) const
 	}
 	return (hashKeyVal % hashTable.size());	//returning the modified hashKeyVal mod the size of the table
 };
+//----------------------
+//for finding second pos
+//----------------------
+template<typename HashKey, typename HashRecord>
+size_t HashTable<HashKey, HashRecord>::customHash2(const HashKey & x) const
+{
 
+}
+//=============================================================================================================================
 // Use lazy deletion to remove an element
 // Return boolean to indicate success of operation
 template <typename HashKey, typename HashRecord>
