@@ -1,19 +1,40 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 
 #include "HashTable.h"
 
-void removeExtraCharacters(std::string & nextToken); //function for creating a string free of 
+void cleaningString(std::string & nextToken); //function for creating a string free of 
 															//	special characters, punctuation, and uppercases
 
 int main()
 {
-	std::cout << "Hello World" << std::endl;
+	string filename = "";										//initializing variable filename
+	//===========================================================================================
+	//DEALING WITH OPENING THE FILE
+	
+	//----------------------
+	//hardwiring for testing purposes
 
-	std::cin.get();
+	//std::cout << "Enter filename to generate poem from: ";		//prompting user for filename
+	//std::cin >> filename;										//user inputs filename
+	filename = "Seuss.txt";
+	std::cout << std::endl;	
+	//----------------------
+
+	//-------------------------------------------------------
+	//checking that the file actually exists
+	std::cout << "Attempting to open " << filename << "...";
+	std::ifstream fin(filename);
+	if (fin)	std::cout << "SUCCESS" << std::endl;	//if 'fin' actually works, print success
+	else		std::cout << "FAILURE" << std::endl;	//else pring failure
+	//-------------------------------------------------------
+	//===========================================================================================
+
+	std::cin.get();	//just so things work on my machine
 }
 
-void removeExtraCharacters(std::string & nextWord)
+void cleaningString(std::string & nextWord)
 {
 	for (int i = 0; i < nextWord.length();)
 	{
