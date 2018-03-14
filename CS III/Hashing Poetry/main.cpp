@@ -6,9 +6,10 @@
 
 #include "HashTable.h"
 
-void cleaningString(std::string & nextToken); //function for creating a string free of 
-											  //	special characters, punctuation, and uppercases
+void cleaningString(std::string & nextToken);	//function for creating a string free of 
+												//	special characters, punctuation, and uppercases
 std::string fileToString(std::string filename);
+void poem(std::string word, int poemLength);	//will create a poem starting with 'word' of length 'poemLength'
 
 int main()
 {
@@ -31,13 +32,13 @@ std::string fileToString(std::string filename)
 	std::ifstream fin(filename);
 	if (fin)
 	{
-		std::cout << "SUCCESS" << std::endl;	//if 'fin' actually works, print success
+		std::cout << "SUCCESS" << std::endl;	//if 'fin' actually works, print success, program will continue on
 	}
 	else
 	{
-		std::cout << "FAILURE -- EXITING PROGRAM \nPRESS ENTER TO EXIT" << std::endl; //else print failure
+		std::cout << "\nFAILURE -- EXITING PROGRAM \nPRESS ENTER TO EXIT" << std::endl; //else print fail
 		cin.get();
-		exit(1);
+		exit(1);	//exit program to avoid any extra problems
 	}
 	//-------------------------------------------------------
 	while (std::getline(fin, word))
