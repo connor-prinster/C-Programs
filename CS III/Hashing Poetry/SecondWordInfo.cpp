@@ -16,7 +16,7 @@ SecondWordInfo::SecondWordInfo(std::string s, int c)
 
 std::string SecondWordInfo::toString()
 {
-
+	return "placement string";
 }
 
 

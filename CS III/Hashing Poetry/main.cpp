@@ -5,15 +5,17 @@
 #include <stdlib.h>
 
 #include "HashTable.h"
+#include "FirstWordInfo.h"
 
 void cleaningString(std::string & nextToken);	//function for creating a string free of 
 												//	special characters, punctuation, and uppercases
-std::string fileToString(std::string filename);
+std::vector<std::string> fileToString(std::string filename);
+std::vector<std::string> stringSplit(std::string passString);
 void poem(std::string word, int poemLength);	//will create a poem starting with 'word' of length 'poemLength'
 
 int main()
 {
-	std::string greenPoemText = fileToString("green.txt");		//greenPoemText now contains a toString() equivalent of green.txt
+	std::vector<std::string> greenPoemVec = fileToString("green.txt");		//greenPoemVec now holds all words in the green.txt file
 
 	std::cin.get();	//just so things work on my machine
 }
@@ -21,7 +23,7 @@ int main()
 //================================================================================================================//
 //          Function to open file and accesses cleaningString to return a toString() version of the file          //
 //================================================================================================================//
-std::string fileToString(std::string filename)
+std::vector<std::string> fileToString(std::string filename)
 {
 	//-------------------------------------------------------
 	//checking that the file actually exists
@@ -45,22 +47,23 @@ std::string fileToString(std::string filename)
 	{
 		completeVector.push_back(word);	//puts the current item into the vector
 	}
-	for (int i = 0; i < completeVector.size(); i++)
+	for (unsigned int i = 0; i < completeVector.size(); i++)
 	{
 		completeString += (completeVector[i] + " "); //concatonates the word to the return string
 	}
 
 	cleaningString(completeString);
 
-	return completeString;
+	return stringSplit(completeString);
 }
+//=====================================================================================================
 
 //===========================================================================================//
 //          Function to remove any non-alphanumeric characters and clear uppercases          //
 //===========================================================================================//
 void cleaningString(std::string & token)
 {
-	for (int i = 0; i < token.length();)
+	for (unsigned int i = 0; i < token.length();)
 	{
 		//checking if there is some non-alphanumeric characters, and if so, remove them
 		if (token[i] > 255 || token[i] < 0 || ispunct(token[i]))
@@ -75,4 +78,19 @@ void cleaningString(std::string & token)
 		}
 	}
 }
-//=====================================================================================================
+//===========================================================================================//
+
+//==========================================================================================//
+//          Function to Split the String Version of the Poem into Individual Words          //
+//==========================================================================================//
+std::vector<std::string> stringSplit(std::string passString)
+{
+	std::istringstream iss(passString);
+	std::vector<std::string> v;
+	while (iss >> passString)
+	{
+		v.push_back(passString);
+	}
+	return v;
+}
+//==========================================================================================//

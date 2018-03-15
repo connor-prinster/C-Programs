@@ -20,7 +20,7 @@ FirstWordInfo::~FirstWordInfo()			 //
 //-----------------------------------------------------------//
 std::string FirstWordInfo::toString()
 {
-
+	return "placementstring";
 }
 
 //---------------------------------------------------------------------//
