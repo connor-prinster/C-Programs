@@ -27,7 +27,7 @@ int main()
 	//--------------------------------------------------//
 	//     create poems (firstword, length, vector)     //
 	//--------------------------------------------------//
-	//poem("sam", 20, greenPoemVec);
+	poem("sam", 20, greenPoemVec);
 
 	std::cout << "---REACHED END OF PROGRAM---" << std::endl;
 	std::cin.get();	//just so things work on my machine
@@ -116,6 +116,16 @@ void poem(std::string startingWord, int poemLength, std::vector<std::string> vec
 {
 	for (int i = 0; i < vectoredFile.size(); i++)
 	{
-		FirstWordInfo(vectoredFile[i], 0);
+		FirstWordInfo * fwi = new FirstWordInfo();
+		if (i < (vectoredFile.size() - 1))	//to make sure this doesn't run over the array's bounds, i CANNOT be the last in the array
+		{
+			fwi->word = vectoredFile[i];	//set the first word as i
+			fwi->updateSecondWord(vectoredFile[i + 1]);	//since there is a second word, set the second word as i+1
+		}
+		else 
+		{
+			fwi->word = vectoredFile[i];	//set the first word as i
+			//since we've reached this point, this is the last word in the vector, so we don't add a second word
+		}
 	}
 }
