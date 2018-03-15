@@ -12,7 +12,8 @@ HashTable<std::string, FirstWordInfo> hashTable;	//global hashtable
 void cleaningString(std::string & nextToken);	//function for creating a string free of special characters, punctuation, and uppercases
 std::vector<std::string> fileToString(std::string filename);	//converts file to string and then returns a vector
 std::vector<std::string> stringSplit(std::string passString, std::string filename);	//converts string to a vector in fileToString
-void poem(std::string, int, std::vector<std::string>);	//will create a poem
+void vecHash(std::vector<std::string>);	//will create a vecHash
+void poem(std::string word, int poemLength);
 
 int main()
 {
@@ -27,7 +28,7 @@ int main()
 	//--------------------------------------------------//
 	//     create poems (firstword, length, vector)     //
 	//--------------------------------------------------//
-	poem("sam", 20, greenPoemVec);
+	vecHash(greenPoemVec);
 
 	std::cout << "---REACHED END OF PROGRAM---" << std::endl;
 	std::cin.get();	//just so things work on my machine
@@ -109,12 +110,12 @@ std::vector<std::string> stringSplit(std::string passString, std::string filenam
 }
 //==========================================================================================//
 
-//================================================================================================================//
-//          Create a Poem Starting With 'startingWord' of Length 'poemLength' from Words in vectoredFile          //
-//================================================================================================================//
-void poem(std::string startingWord, int poemLength, std::vector<std::string> vectoredFile)
+//====================================================================================//
+//          Fill the HashTable with a Hashed Version of the Passed-in Vector          //
+//====================================================================================//
+void vecHash(std::vector<std::string> vectoredFile)
 {
-	//runs a procedure for inserting/updating the hashtable for the length of the poem
+	//runs a procedure for inserting/updating the hashtable for the length of the vecHash
 	for (int unsigned i = 0; i < vectoredFile.size(); i++)
 	{
 		std::string cusHash = std::to_string(hashTable.customHash(vectoredFile[i]));	//creates a hash val for the current word in the vector
@@ -150,4 +151,12 @@ void poem(std::string startingWord, int poemLength, std::vector<std::string> vec
 		}
 		//------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	}
+}
+
+//================================================================================================================//
+//          Create a Poem Starting With 'startingWord' of Length 'poemLength' from Words in vectoredFile          //
+//================================================================================================================//
+void poem(std::string word, int poemLength)
+{
+
 }
