@@ -7,19 +7,29 @@
 #include "HashTable.h"
 #include "FirstWordInfo.h"
 
-void cleaningString(std::string & nextToken);	//function for creating a string free of 
-												//	special characters, punctuation, and uppercases
-std::vector<std::string> fileToString(std::string filename);
-std::vector<std::string> stringSplit(std::string passString, std::string filename);
-void poem(std::string word, int poemLength);	//will create a poem starting with 'word' of length 'poemLength'
+HashTable<std::string, FirstWordInfo> hashTable;	//global hashtable
+
+void cleaningString(std::string & nextToken);	//function for creating a string free of special characters, punctuation, and uppercases
+std::vector<std::string> fileToString(std::string filename);	//converts file to string and then returns a vector
+std::vector<std::string> stringSplit(std::string passString, std::string filename);	//converts string to a vector in fileToString
+void poem(std::string, int, std::vector<std::string>);	//will create a poem
 
 int main()
 {
-	std::vector<std::string> clownPoemVec = fileToString("clown.txt");		//greenPoemVec now holds all words in the green.txt file
-	std::vector<std::string> greenPoemVec = fileToString("green.txt");
+	//----------------------------------------------------------------------//
+	//     each vector now holds each individual word of the *.txt file     //
+	//----------------------------------------------------------------------//
+	std::vector<std::string> clownPoemVec = fileToString("clown.txt");		
+	std::vector<std::string> greenPoemVec = fileToString("green.txt");	
+	std::vector<std::string> inchPoemVec = fileToString("inch.txt");
 	std::vector<std::string> PoePoemVec = fileToString("Poe.txt");
 	std::vector<std::string> SeussPoemVec = fileToString("Seuss.txt");
+	//--------------------------------------------------//
+	//     create poems (firstword, length, vector)     //
+	//--------------------------------------------------//
+	//poem("sam", 20, greenPoemVec);
 
+	std::cout << "---REACHED END OF PROGRAM---" << std::endl;
 	std::cin.get();	//just so things work on my machine
 }
 
@@ -41,7 +51,7 @@ std::vector<std::string> fileToString(std::string filename)
 	}
 	else
 	{
-		std::cout << "\nFAILURE -- EXITING PROGRAM \nPRESS ENTER TO EXIT" << std::endl; //else print fail
+		std::cout << "\nFAILURE -- EXITING PROGRAM \nPRESS ENTER TO EXIT"; //else print fail
 		cin.get();
 		exit(1);	//exit program to avoid any extra problems
 	}
@@ -98,3 +108,11 @@ std::vector<std::string> stringSplit(std::string passString, std::string filenam
 	return v;
 }
 //==========================================================================================//
+
+//================================================================================================================//
+//          Create a Poem Starting With 'startingWord' of Length 'poemLength' from Words in vectoredFile          //
+//================================================================================================================//
+void poem(std::string startingWord, int poemLength, std::vector<std::string> vectoredFile)
+{
+
+}
