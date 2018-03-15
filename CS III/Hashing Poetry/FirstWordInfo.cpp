@@ -18,7 +18,15 @@ FirstWordInfo::~FirstWordInfo()			 //
 //-----------------------------------------------------------//
 std::string FirstWordInfo::toString()
 {
-	return "placementstring";
+	std::string swlContents = "The word " + word + " has the following " + std::to_string(secondWordList.size()) + " possibilities: "; //prints "the word <word> has the following <size> possibilities: "
+
+	for (int i = 0; i < secondWordList.size(); i++)
+	{
+		swlContents += secondWordList[i].toString();	//repeatedly concatonates the toString() method of each SecondWordInfo object in secondWordList
+	}
+	swlContents += "\n";
+
+	return swlContents; //returns //prints "the word <word> has the following <size> possibilities: <followingWord(freq)>\n"
 }
 
 //---------------------------------------------------------------------//
