@@ -114,5 +114,8 @@ std::vector<std::string> stringSplit(std::string passString, std::string filenam
 //================================================================================================================//
 void poem(std::string startingWord, int poemLength, std::vector<std::string> vectoredFile)
 {
-
+	for (int i = 0; i < vectoredFile.size(); i++)
+	{
+		FirstWordInfo(vectoredFile[i], 0);
+	}
 }
