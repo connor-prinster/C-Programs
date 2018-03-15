@@ -10,12 +10,15 @@
 void cleaningString(std::string & nextToken);	//function for creating a string free of 
 												//	special characters, punctuation, and uppercases
 std::vector<std::string> fileToString(std::string filename);
-std::vector<std::string> stringSplit(std::string passString);
+std::vector<std::string> stringSplit(std::string passString, std::string filename);
 void poem(std::string word, int poemLength);	//will create a poem starting with 'word' of length 'poemLength'
 
 int main()
 {
-	std::vector<std::string> greenPoemVec = fileToString("green.txt");		//greenPoemVec now holds all words in the green.txt file
+	std::vector<std::string> clownPoemVec = fileToString("clown.txt");		//greenPoemVec now holds all words in the green.txt file
+	std::vector<std::string> greenPoemVec = fileToString("green.txt");
+	std::vector<std::string> PoePoemVec = fileToString("Poe.txt");
+	std::vector<std::string> SeussPoemVec = fileToString("Seuss.txt");
 
 	std::cin.get();	//just so things work on my machine
 }
@@ -54,7 +57,7 @@ std::vector<std::string> fileToString(std::string filename)
 
 	cleaningString(completeString);
 
-	return stringSplit(completeString);
+	return stringSplit(completeString, filename);
 }
 //=====================================================================================================
 
@@ -83,7 +86,7 @@ void cleaningString(std::string & token)
 //==========================================================================================//
 //          Function to Split the String Version of the Poem into Individual Words          //
 //==========================================================================================//
-std::vector<std::string> stringSplit(std::string passString)
+std::vector<std::string> stringSplit(std::string passString, std::string filename)
 {
 	std::istringstream iss(passString);
 	std::vector<std::string> v;
@@ -91,6 +94,7 @@ std::vector<std::string> stringSplit(std::string passString)
 	{
 		v.push_back(passString);
 	}
+	std::cout << filename << " is now successfully in vector form\n";
 	return v;
 }
 //==========================================================================================//
