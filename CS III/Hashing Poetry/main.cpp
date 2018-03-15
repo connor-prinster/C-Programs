@@ -114,18 +114,40 @@ std::vector<std::string> stringSplit(std::string passString, std::string filenam
 //================================================================================================================//
 void poem(std::string startingWord, int poemLength, std::vector<std::string> vectoredFile)
 {
-	for (int i = 0; i < vectoredFile.size(); i++)
+	//runs a procedure for inserting/updating the hashtable for the length of the poem
+	for (int unsigned i = 0; i < vectoredFile.size(); i++)
 	{
-		FirstWordInfo * fwi = new FirstWordInfo();
-		if (i < (vectoredFile.size() - 1))	//to make sure this doesn't run over the array's bounds, i CANNOT be the last in the array
+		std::string cusHash = std::to_string(hashTable.customHash(vectoredFile[i]));	//creates a hash val for the current word in the vector
+		FirstWordInfo * foundHash = hashTable.find(cusHash);	//find the pointer, assign it to foundHash
+		hashTable.remove(cusHash);	//delete the cushash
+
+		//check for the existence of the found val
+		//------------------------------------------------------------------------------------------------------------------------------------------------------------------
+		if (foundHash == NULL)		
 		{
-			fwi->word = vectoredFile[i];	//set the first word as i
-			fwi->updateSecondWord(vectoredFile[i + 1]);	//since there is a second word, set the second word as i+1
+			//no object exists with the curHash value so we must create a new one
+			FirstWordInfo * fwi = new FirstWordInfo();
+
+			//to make sure this doesn't run over the array's bounds, i CANNOT be the last in the array
+			//------------------------------------------------------------------------------------------
+			if (i < (vectoredFile.size() - 1))	
+			{
+				fwi->word = vectoredFile[i];	//set the first word as i
+				fwi->updateSecondWord(vectoredFile[i + 1]);	//since there is a second word, set the second word as i+1
+			}
+			else
+			{
+				fwi->word = vectoredFile[i];	//set the first word as i since we've reached this point, this is the last word in the vector, so we don't add a second word
+			}
+			//------------------------------------------------------------------------------------------
+
+			//insert hashval, fwi into the hashtable
+			hashTable.insert(vectoredFile[i], fwi);	
 		}
-		else 
+		else
 		{
-			fwi->word = vectoredFile[i];	//set the first word as i
-			//since we've reached this point, this is the last word in the vector, so we don't add a second word
+			foundHash->count++;	//since the word already exists, increment the number of times it's already been found
 		}
+		//------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	}
 }

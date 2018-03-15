@@ -26,7 +26,7 @@ std::string FirstWordInfo::toString()
 	}
 	swlContents += "\n";
 
-	return swlContents; //returns //prints "the word <word> has the following <size> possibilities: <followingWord(freq)>\n"
+	return swlContents; //returns "the word <word> has the following <size> possibilities: <followingWord(freq)>\n"
 }
 
 //---------------------------------------------------------------------//
