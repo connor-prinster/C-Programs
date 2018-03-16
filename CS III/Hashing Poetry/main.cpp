@@ -117,19 +117,32 @@ void vecHash(std::vector<std::string> vectoredFile)
 {
 	for (unsigned int i = 0; i < vectoredFile.size(); i++)
 	{
-		FirstWordInfo * fwi = NULL; //create blank object for each potential word in vector
+		FirstWordInfo * fwiForCheckingNull = NULL; //create blank object for each potential word in vector
+		FirstWordInfo * fwiForFilling = NULL;
 		std::string currWord = vectoredFile[i];
 		std::string currHashKey = ht.myHash(currWord);
 
-		fwi = ht.returnRecordAt(currHashKey);
-		if (fwi == NULL)
+		fwiForCheckingNull = ht.returnRecordAt(currHashKey);
+		if (fwiForCheckingNull == NULL)
 		{
 			//because returnRecordAt returned a NULL, there is no matching key so we must create an object
+			fwiForFilling->word = currWord;	//this object now has the currWord assigned to it
+			fwiForFilling->count = 1;	//since it's only appeared once, the word now has a frequency of one
 
+			//because this may or may not be the last word in the list, we now have an if statement to decide if we add a swi to avoid overrunning bounds
+			if (i < (vectoredFile.size() - 1))
+			{
+				//if it is at least the second to last object
+				fwiForFilling->secondWordList.push_back(SecondWordInfo(vectoredFile[i + 1], 1));	//the vector now contains an anonymous swi object holding the word after currWord and a freq of one
+			}
+		}
+		else if (fwiForCheckingNull != NULL)
+		{
+			fwiForFilling->updateCount();	//since there is already an object with the same hash val, increase the amount of times it's called
+			fwiForFilling->updateSecondWord(currWord);	//either add or increase the frequency of a word to the secondWord vector
 		}
 		
-
-
+		ht.insert(currHashKey, fwiForCheckingNull);
 	}
 
 
@@ -151,23 +164,23 @@ void vecHash(std::vector<std::string> vectoredFile)
 	//	if (foundHash == NULL)		
 	//	{
 	//		//no object exists with the curHash value so we must create a new one
-	//		FirstWordInfo * fwi = new FirstWordInfo();
+	//		FirstWordInfo * fwiForCheckingNull = new FirstWordInfo();
 
 	//		//to make sure this doesn't run over the array's bounds, i CANNOT be the last in the array
 	//		//------------------------------------------------------------------------------------------
 	//		if (i < (vectoredFile.size() - 1))	
 	//		{
-	//			fwi->word = vectoredFile[i];	//set the first word as i
-	//			fwi->updateSecondWord(vectoredFile[i + 1]);	//since there is a second word, set the second word as i+1
+	//			fwiForCheckingNull->word = vectoredFile[i];	//set the first word as i
+	//			fwiForCheckingNull->updateSecondWord(vectoredFile[i + 1]);	//since there is a second word, set the second word as i+1
 	//		}
 	//		else
 	//		{
-	//			fwi->word = vectoredFile[i];	//set the first word as i since we've reached this point, this is the last word in the vector, so we don't add a second word
+	//			fwiForCheckingNull->word = vectoredFile[i];	//set the first word as i since we've reached this point, this is the last word in the vector, so we don't add a second word
 	//		}
 	//		//------------------------------------------------------------------------------------------
 	//		
-	//		//insert hashval, fwi into the hashtable
-	//		hashTable.insert(currHashKey, fwi);	
+	//		//insert hashval, fwiForCheckingNull into the hashtable
+	//		hashTable.insert(currHashKey, fwiForCheckingNull);	
 	//	}
 	//	else if (foundHash != NULL)
 	//	{
