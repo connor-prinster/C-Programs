@@ -117,15 +117,16 @@ void vecHash(std::vector<std::string> vectoredFile)
 {
 	for (unsigned int i = 0; i < vectoredFile.size(); i++)
 	{
-		FirstWordInfo * fwiForCheckingNull = NULL; //create blank object for each potential word in vector
-		FirstWordInfo * fwiForFilling = NULL;
+		
+		FirstWordInfo * fwiForFilling = new FirstWordInfo();
 		std::string currWord = vectoredFile[i];
 		std::string currHashKey = ht.myHash(currWord);
 
-		fwiForCheckingNull = ht.returnRecordAt(currHashKey);
-		if (fwiForCheckingNull == NULL)
+		int positionWhereItExists = 0; //bool to see if a record with the same hashkey exists already
+		positionWhereItExists = ht.whereDoesItExist(currHashKey);
+		if (positionWhereItExists < 0)
 		{
-			//because returnRecordAt returned a NULL, there is no matching key so we must create an object
+			//because whereDoesItExist returned false, must create new object
 			fwiForFilling->word = currWord;	//this object now has the currWord assigned to it
 			fwiForFilling->count = 1;	//since it's only appeared once, the word now has a frequency of one
 
@@ -135,15 +136,15 @@ void vecHash(std::vector<std::string> vectoredFile)
 				//if it is at least the second to last object
 				fwiForFilling->secondWordList.push_back(SecondWordInfo(vectoredFile[i + 1], 1));	//the vector now contains an anonymous swi object holding the word after currWord and a freq of one
 			}
-			ht.insert(currHashKey, fwiForCheckingNull);	//insert the newly filled object
+			ht.insert(currHashKey, fwiForFilling);	//insert the newly filled object
 		}
-		else if (fwiForCheckingNull != NULL)
+		else if (positionWhereItExists > 0)
 		{
 			fwiForFilling->updateCount();	//since there is already an object with the same hash val, increase the amount of times it's called
 			fwiForFilling->updateSecondWord(currWord);	//either add or increase the frequency of a word to the secondWord vector
 
 			ht.remove(currHashKey);	//remove the current outdated object before inserting the updated one
-			ht.insert(currHashKey, fwiForCheckingNull);	//insert the updated object
+			ht.insert(currHashKey, fwiForFilling);	//insert the updated object
 		}	
 	}
 }

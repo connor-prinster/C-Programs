@@ -43,7 +43,7 @@ public:
 	void makeEmpty();
 	std::string toString(int howMany = 50);
 	HashKey myHash(const HashKey & x) const;
-	HashRecord * returnRecordAt(const HashKey & x) const;
+	int whereDoesItExist(const HashKey & x) const;
 	int returnPos(const HashKey & x) const;
 
 private:
@@ -74,26 +74,17 @@ std::string HashTable<HashKey, HashRecord>::toString(int howMany)
 
 //Returns the record at the correct address
 template <typename HashKey, typename HashRecord>
-HashRecord * HashTable<HashKey, HashRecord>::returnRecordAt(const HashKey & x) const
+int HashTable<HashKey, HashRecord>::whereDoesItExist(const HashKey & passHash) const
 {
-	bool found = false;
-	int returnPos = -1;
-	for (int i = 0; i < hashTable.size(); i++)
+	int posFound = -1;
+	for (unsigned int i = 0; i < hashTable.size(); i++)
 	{
-		if (hashTable[i].rec != nullptr)
+		if (hashTable[i].key == passHash)
 		{
-			if (hashTable[i].rec->word == x)
-			{
-				returnPos = i;
-			}
+			posFound = i;	//the current spot in the HashTable is assigned to posFound
 		}
 	}
-	if (returnPos < 0)
-	{
-		return NULL;
-	}
-	HashRecord * hr = hashTable[returnPos].rec;
-	return hr;
+	return posFound;
 }
 
 //Returns the index of the word
