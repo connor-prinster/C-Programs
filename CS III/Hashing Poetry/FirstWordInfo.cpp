@@ -1,18 +1,13 @@
 #include "FirstWordInfo.h"
 
-///////////////////////////////////////////
-//  STANDARD CONSTRUCTOR AND DESTRUCTOR  //
-///////////////////////////////////////////
-FirstWordInfo::FirstWordInfo()			 //
+FirstWordInfo::FirstWordInfo()			 
 {							
 	word = "";
 	count = 0;
-}										 //
-FirstWordInfo::~FirstWordInfo()			 //
-{										 //
-}										 //
-///////////////////////////////////////////
-
+}										 
+FirstWordInfo::~FirstWordInfo()			 
+{										 
+}										 
 
 //==================================================================================//
 void FirstWordInfo::updateCount() 
@@ -48,22 +43,20 @@ FirstWordInfo::FirstWordInfo(std::string s, int c)
 //--------------------------------------------------------------------------//
 //          Based on the First Word, Adjust Second Word to Meet it          //
 //--------------------------------------------------------------------------//
-void FirstWordInfo::updateSecondWord(std::string w)
+void FirstWordInfo::updateSecondWord(std::string word)
 {
-	bool wordAlreadyExists = false;	//bool to check if the word already exists
-	int idxFound = 0;	//making sure the index in the for loop is in scope of function
-	for (unsigned int i = 0; i < secondWordList.size(); i++)
+	bool wordWasFound = false;
+	for (int i = 0; i < secondWordList.size(); i++)
 	{
-		if (secondWordList[i].word == w) wordAlreadyExists = true; //if word is found, set bool true
-		idxFound = i;	//set idxFound to the index where the word was found
+		if (secondWordList[i].word == word)
+		{
+			secondWordList[i].increment();	//since the word was found, it needs to be added
+			wordWasFound = true;
+		}
 	}
-	if (!wordAlreadyExists)
+	if (!wordWasFound)
 	{
-		secondWordList.push_back(SecondWordInfo(word, 0));	//since the word doesn't exist, make a spot for the word
-	}
-	else
-	{
-		secondWordList[idxFound].increment();	//at the index where the same word was found, increment the word count
+		secondWordList.push_back(SecondWordInfo(word, 1));	//since the word wasn't found, add a new swi to the vector with (word, 1)
 	}
 }
 //==================================================================================//
