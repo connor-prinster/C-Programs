@@ -62,14 +62,17 @@ std::string HashTable<HashKey, HashRecord>::toString(int howMany)
 {
 	int ct = 0;
 	stringstream ss;
+	ss << "\n========================================================================================\n";
+	ss << "                         toString Representation of the HashTable                         ";
+	ss << "\n========================================================================================\n";
 	ss << "Current size " << hashTable.size() << endl;
 	for (int i = 0; i < hashTable.size() && ct < howMany; i++)
 		if (hashTable[i].info == ACTIVE){
-		     ss << hashTable[i].rec->toString() << "\n";
+			ss << hashTable[i].rec->toString();
 		     ct++;
 		}
+	ss << "==============================================================================================\n";
 	return ss.str();
-
 }
 
 //Returns the record at the correct address
