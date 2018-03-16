@@ -118,9 +118,11 @@ void vecHash(std::vector<std::string> vectoredFile)
 	//runs a procedure for inserting/updating the hashtable for the length of the vecHash
 	for (int unsigned i = 0; i < vectoredFile.size(); i++)
 	{
-		std::string cusHash = std::to_string(hashTable.customHash(vectoredFile[i]));	//creates a hash val for the current word in the vector
-		FirstWordInfo * foundHash = hashTable.find(cusHash);	//find the pointer, assign it to foundHash
-		hashTable.remove(cusHash);	//delete the cushash
+		FirstWordInfo * foundHash = NULL;
+
+		std::string currWord = vectoredFile[i];
+		
+		foundHash = hashTable.retRecAtIdx(vectoredFile[i]);
 
 		//check for the existence of the found val
 		//------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -145,12 +147,13 @@ void vecHash(std::vector<std::string> vectoredFile)
 			//insert hashval, fwi into the hashtable
 			hashTable.insert(vectoredFile[i], fwi);	
 		}
-		else
+		else if (foundHash != NULL)
 		{
-			foundHash->count++;	//since the word already exists, increment the number of times it's already been found
+			foundHash->updateCount();	//since the word already exists, increment the number of times it's already been found by one
 		}
 		//------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	}
+
 }
 
 //================================================================================================================//

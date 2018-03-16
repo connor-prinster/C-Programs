@@ -14,7 +14,7 @@ bool isPrime(int n);
 enum Status { ACTIVE, EMPTY, DELETED };
 
 // We store two things.  The key itself and the record associated with the key.
-// In our case, the HashKey will be a string.  The HashRecord will be a node containing the word, the count, an a vector of succesor information.
+// In our case, the HashKey will be a string.  The HashRecord will be a node containing the word, the count, and a vector of succesor information.
 template <typename HashKey, typename HashRecord>
 class HashEntry
 {
@@ -34,7 +34,7 @@ class HashTable
 public:
 	bool remove(const HashKey & x);										//removes the hashkey
 	bool isEmpty() { return activeElements == 0; }						//checks to see if table is empty
-	HashRecord * insert(const HashKey x, HashRecord * h);				//insets hashkey
+	HashRecord * insert(const HashKey x, HashRecord * h);				//inserts hashkey
 	explicit HashTable(int size = 977) : hashTable(nextPrime(size))
 	{
 		makeEmpty();
@@ -42,13 +42,16 @@ public:
 	HashRecord *find(const HashKey & x) const;
 	void makeEmpty();
 	std::string toString(int howMany = 50);
+	int myHash(const HashKey & x) const;
+	HashRecord * retRecAtIdx(const HashKey & x) const;
+	int returnPos(const HashKey & x) const;
 
 private:
 	vector<HashEntry<HashKey, HashRecord>> hashTable;
 	int activeElements;
 	bool isActive(int currentPos) const;
-	size_t customHash1(const HashKey & x) const;
-	size_t customHash2(const HashKey & x) const;
+	size_t customProbe1(const HashKey & x) const;
+	size_t customProbe2(const HashKey & x) const;
 	int findPos(const HashKey & x) const;
 	void rehash();
 };
@@ -69,18 +72,68 @@ std::string HashTable<HashKey, HashRecord>::toString(int howMany)
 
 }
 
-//===========================//
-//IMPLEMENTING DOUBLE HASHING//
-//=================================================================================
+//Returns the record at the correct address
+template <typename HashKey, typename HashRecord>
+HashRecord * HashTable<HashKey, HashRecord>::retRecAtIdx(const HashKey & x) const
+{
+	bool found = false;
+	int returnPos = NULL;
+	std::string buttz = " ";
+	for (int i = 0; i < hashTable.size(); i++)
+	{
+		if (hashTable[i].rec != nullptr)
+		{
+			if (hashTable[i].rec->word == x)
+			{
+				returnPos = i;
+			}
+		}
+	}
+	
+	HashRecord * hr = hashTable[returnPos].rec;
+	return hr;
+}
+
+//Returns the index of the word
+template <typename HashKey, typename HashRecord>
+int HashTable<HashKey, HashRecord>::returnPos(const HashKey & x) const
+{
+	bool found = false;
+	int returnPos = NULL;
+	std::string buttz = " ";
+	for (int i = 0; i < hashTable.size(); i++)
+	{
+		if (hashTable[i].rec != nullptr)
+		{
+			if (hashTable[i].rec->word == x)
+			{
+				returnPos = i;
+			}
+		}
+	}
+
+	return returnPos;
+}
+
+//====================================//
+//        Custom Hash Function        //
+//====================================//
+template <typename HashKey, typename HashRecord>
+int HashTable<HashKey, HashRecord>::myHash(const HashKey & x) const
+{
+	static hash<HashKey> hf;
+	return hf(x) % hashTable.size();
+}
+
 // return the subscript where x is located in the hash table.    
 template <typename HashKey, typename HashRecord>
 int HashTable<HashKey, HashRecord>::findPos(const HashKey & x) const
 {
 	int offset = 1;
 	int iteration = 0;
-	int origPos = customHash1(x);		//computing the first hash
+	int origPos = customProbe1(x);		//computing the first hash
 	int index = origPos;				//creating a copy of origPos
-	int customStep = customHash2(x);	//computing the second hash
+	int customStep = customProbe2(x);	//computing the second hash
 
 	while (hashTable[index].info != EMPTY && hashTable[index].key != x)
 	{
@@ -147,7 +200,7 @@ bool HashTable<HashKey, HashRecord>::isActive(int currentPos) const
 //for finding first pos
 //---------------------
 template<typename HashKey, typename HashRecord>
-size_t HashTable<HashKey, HashRecord>::customHash1(const HashKey & x) const
+size_t HashTable<HashKey, HashRecord>::customProbe1(const HashKey & x) const
 {
 	unsigned int hashKeyVal1 = 0;
 	for (int i = 0; i < x.length(); i++)
@@ -160,7 +213,7 @@ size_t HashTable<HashKey, HashRecord>::customHash1(const HashKey & x) const
 //for finding second pos
 //----------------------
 template<typename HashKey, typename HashRecord>
-size_t HashTable<HashKey, HashRecord>::customHash2(const HashKey & x) const
+size_t HashTable<HashKey, HashRecord>::customProbe2(const HashKey & x) const
 {
 	unsigned int hashKeyVal2 = 0;
 	for (int i = 0; i < x.length(); i++)
