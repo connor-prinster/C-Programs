@@ -3,6 +3,7 @@
 #include <fstream>
 #include <vector>
 #include <stdlib.h>
+#include <time.h>
 
 #include "HashTable.h"
 #include "FirstWordInfo.h"
@@ -14,6 +15,7 @@ std::vector<std::string> fileToString(std::string filename);	//converts file to 
 std::vector<std::string> stringSplit(std::string passString, std::string filename);	//converts string to a vector in fileToString
 void vecHash(std::vector<std::string>);	//will create a vecHash
 void poem(std::string word, int poemLength);
+std::string nextWordFromVec(FirstWordInfo *, int);
 
 int main()
 {
@@ -30,6 +32,9 @@ int main()
 	//--------------------------------------------------//
 	vecHash(greenPoemVec);
 	std::cout << ht.toString();
+
+	poem("sam", 20);
+
 	std::cout << "---REACHED END OF PROGRAM---" << std::endl;
 	std::cin.get();	//just so things work on my machine
 }
@@ -159,8 +164,43 @@ void vecHash(std::vector<std::string> vectoredFile)
 //================================================================================================================//
 void poem(std::string word, int poemLength)
 {
+	srand(time(NULL));
+	//would create a "rand() % count"
+	
+	std::string poemString = "";	//initializing the string 
+	std::string hashableWord = word;
+	std::string nextWord = "";
+	
+	FirstWordInfo * fwi = new FirstWordInfo();
+	
 	for (int i = 0; i < poemLength; i++)
 	{
-
+		std::string hashedWord = ht.myHash(hashableWord);
+		int recPos = ht.whereDoesItExist(hashedWord);	//return position of where the key is found
+		fwi = ht.returnRecordAt(recPos);	//fwi is filled with the record found at recPos
+		nextWord = nextWordFromVec(fwi, (rand() % fwi->count));
+		hashableWord = nextWord;
+		poemString += (nextWord + " ");
 	}
+	std::cout << poemString + "\n";
+}
+
+//==========================================================================================//
+//          Create a Vector To Easily Determine Which Word Should Follow the First          //
+//==========================================================================================//
+std::string nextWordFromVec(FirstWordInfo * passFWI, int randomNum)
+{
+	std::vector<std::string> possWords;
+	std::string chosenWord = "";
+	
+	//runs a for-loop for as long as there are different words in secondWordList
+	for (int spotInSWL = 0; spotInSWL < passFWI->secondWordList.size(); spotInSWL++)
+	{
+		//runs a for-loop for as long as the count of times a word is said
+		for (int j = 0; j < passFWI->secondWordList[spotInSWL].count; j++)
+		{
+			possWords.push_back(passFWI->secondWordList[spotInSWL].word);
+		}
+	}
+	return possWords[randomNum];
 }
