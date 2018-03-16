@@ -44,7 +44,7 @@ public:
 	std::string toString(int howMany = 50);
 	HashKey myHash(const HashKey & x) const;
 	int whereDoesItExist(const HashKey & x) const;
-	int returnPos(const HashKey & x) const;
+	HashRecord * returnRecordAt(int pos);
 
 private:
 	vector<HashEntry<HashKey, HashRecord>> hashTable;
@@ -89,22 +89,9 @@ int HashTable<HashKey, HashRecord>::whereDoesItExist(const HashKey & passHash) c
 
 //Returns the index of the word
 template <typename HashKey, typename HashRecord>
-int HashTable<HashKey, HashRecord>::returnPos(const HashKey & passedHash) const
+HashRecord * HashTable<HashKey, HashRecord>::returnRecordAt(int pos)
 {
-	bool found = false;
-	int returnPos = NULL;
-	std::string buttz = " ";
-	for (int i = 0; i < hashTable.size(); i++)
-	{
-		if (hashTable[i].rec != nullptr)
-		{
-			if (hashTable[i].rec->word == passedHash)
-			{
-				return i;
-			}
-		}
-	}
-	return 0;
+	return hashTable[pos].rec;
 }
 
 //====================================//

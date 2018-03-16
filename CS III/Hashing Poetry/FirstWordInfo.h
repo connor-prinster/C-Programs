@@ -17,6 +17,7 @@ public:
 	std::string toString();
 	FirstWordInfo(std::string s, int c);
 	void updateSecondWord(std::string w);
+	void updateCount();
 
 	~FirstWordInfo();
 };
