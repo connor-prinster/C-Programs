@@ -42,8 +42,8 @@ public:
 	HashRecord *find(const HashKey & x) const;
 	void makeEmpty();
 	std::string toString(int howMany = 50);
-	int myHash(const HashKey & x) const;
-	HashRecord * retRecAtIdx(const HashKey & x) const;
+	HashKey myHash(const HashKey & x) const;
+	HashRecord * returnRecordAt(const HashKey & x) const;
 	int returnPos(const HashKey & x) const;
 
 private:
@@ -74,11 +74,10 @@ std::string HashTable<HashKey, HashRecord>::toString(int howMany)
 
 //Returns the record at the correct address
 template <typename HashKey, typename HashRecord>
-HashRecord * HashTable<HashKey, HashRecord>::retRecAtIdx(const HashKey & x) const
+HashRecord * HashTable<HashKey, HashRecord>::returnRecordAt(const HashKey & x) const
 {
 	bool found = false;
-	int returnPos = NULL;
-	std::string buttz = " ";
+	int returnPos = -1;
 	for (int i = 0; i < hashTable.size(); i++)
 	{
 		if (hashTable[i].rec != nullptr)
@@ -89,14 +88,17 @@ HashRecord * HashTable<HashKey, HashRecord>::retRecAtIdx(const HashKey & x) cons
 			}
 		}
 	}
-	
+	if (returnPos < 0)
+	{
+		return NULL;
+	}
 	HashRecord * hr = hashTable[returnPos].rec;
 	return hr;
 }
 
 //Returns the index of the word
 template <typename HashKey, typename HashRecord>
-int HashTable<HashKey, HashRecord>::returnPos(const HashKey & x) const
+int HashTable<HashKey, HashRecord>::returnPos(const HashKey & passedHash) const
 {
 	bool found = false;
 	int returnPos = NULL;
@@ -105,27 +107,27 @@ int HashTable<HashKey, HashRecord>::returnPos(const HashKey & x) const
 	{
 		if (hashTable[i].rec != nullptr)
 		{
-			if (hashTable[i].rec->word == x)
+			if (hashTable[i].rec->word == passedHash)
 			{
-				returnPos = i;
+				return i;
 			}
 		}
 	}
-
-	return returnPos;
+	return 0;
 }
 
 //====================================//
 //        Custom Hash Function        //
 //====================================//
 template <typename HashKey, typename HashRecord>
-int HashTable<HashKey, HashRecord>::myHash(const HashKey & x) const
+HashKey HashTable<HashKey, HashRecord>::myHash(const HashKey & x) const
 {
 	static hash<HashKey> hf;
-	return hf(x) % hashTable.size();
+	std::string strVers = std::to_string(hf(x) % hashTable.size());
+	return strVers;
 }
 
-// return the subscript where x is located in the hash table.    
+// return the subscript where passedHash is located in the hash table.    
 template <typename HashKey, typename HashRecord>
 int HashTable<HashKey, HashRecord>::findPos(const HashKey & x) const
 {
@@ -240,11 +242,11 @@ bool HashTable<HashKey, HashRecord>::remove(const HashKey & x)
 	return true;
 };
 
-// Insert item with key x and record pointer h into the hash table.
+// Insert item with key passedHash and record pointer h into the hash table.
 template<typename HashKey, typename HashRecord>
 HashRecord * HashTable<HashKey, HashRecord>::insert(const HashKey x, HashRecord * h)
 {
-	// Insert x as active
+	// Insert passedHash as active
 	int currentPos = findPos(x);
 	if (isActive(currentPos))
 		return NULL;
@@ -260,7 +262,7 @@ HashRecord * HashTable<HashKey, HashRecord>::insert(const HashKey x, HashRecord 
 	return h;
 };
 
-// Return record for item with key x.
+// Return record for item with key passedHash.
 template<typename HashKey, typename HashRecord>
 HashRecord * HashTable<HashKey, HashRecord>::find(const HashKey & x) const
 {

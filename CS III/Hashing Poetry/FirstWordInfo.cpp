@@ -4,7 +4,9 @@
 //  STANDARD CONSTRUCTOR AND DESTRUCTOR  //
 ///////////////////////////////////////////
 FirstWordInfo::FirstWordInfo()			 //
-{										 //
+{							
+	word = "";
+	count = 0;
 }										 //
 FirstWordInfo::~FirstWordInfo()			 //
 {										 //
@@ -13,6 +15,11 @@ FirstWordInfo::~FirstWordInfo()			 //
 
 
 //==================================================================================//
+void FirstWordInfo::updateCount() 
+{
+	count++;
+};
+
 //-----------------------------------------------------------//
 //          Typical toString Function for Debugging          //
 //-----------------------------------------------------------//
@@ -20,7 +27,7 @@ std::string FirstWordInfo::toString()
 {
 	std::string swlContents = "The word " + word + " has the following " + std::to_string(secondWordList.size()) + " possibilities: "; //prints "the word <word> has the following <size> possibilities: "
 
-	for (int i = 0; i < secondWordList.size(); i++)
+	for (unsigned int i = 0; i < secondWordList.size(); i++)
 	{
 		swlContents += secondWordList[i].toString();	//repeatedly concatonates the toString() method of each SecondWordInfo object in secondWordList
 	}
@@ -45,7 +52,7 @@ void FirstWordInfo::updateSecondWord(std::string w)
 {
 	bool wordAlreadyExists = false;	//bool to check if the word already exists
 	int idxFound = 0;	//making sure the index in the for loop is in scope of function
-	for (int i = 0; i < secondWordList.size(); i++)
+	for (unsigned int i = 0; i < secondWordList.size(); i++)
 	{
 		if (secondWordList[i].word == w) wordAlreadyExists = true; //if word is found, set bool true
 		idxFound = i;	//set idxFound to the index where the word was found

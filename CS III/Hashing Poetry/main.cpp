@@ -7,7 +7,7 @@
 #include "HashTable.h"
 #include "FirstWordInfo.h"
 
-HashTable<std::string, FirstWordInfo> hashTable;	//global hashtable
+HashTable<std::string, FirstWordInfo> ht;	//global hashtable
 
 void cleaningString(std::string & nextToken);	//function for creating a string free of special characters, punctuation, and uppercases
 std::vector<std::string> fileToString(std::string filename);	//converts file to string and then returns a vector
@@ -115,45 +115,69 @@ std::vector<std::string> stringSplit(std::string passString, std::string filenam
 //====================================================================================//
 void vecHash(std::vector<std::string> vectoredFile)
 {
-	//runs a procedure for inserting/updating the hashtable for the length of the vecHash
-	for (int unsigned i = 0; i < vectoredFile.size(); i++)
+	for (unsigned int i = 0; i < vectoredFile.size(); i++)
 	{
-		FirstWordInfo * foundHash = NULL;
-
+		FirstWordInfo * fwi = NULL; //create blank object for each potential word in vector
 		std::string currWord = vectoredFile[i];
+		std::string currHashKey = ht.myHash(currWord);
+
+		fwi = ht.returnRecordAt(currHashKey);
+		if (fwi == NULL)
+		{
+			//because returnRecordAt returned a NULL, there is no matching key so we must create an object
+
+		}
 		
-		foundHash = hashTable.retRecAtIdx(vectoredFile[i]);
 
-		//check for the existence of the found val
-		//------------------------------------------------------------------------------------------------------------------------------------------------------------------
-		if (foundHash == NULL)		
-		{
-			//no object exists with the curHash value so we must create a new one
-			FirstWordInfo * fwi = new FirstWordInfo();
 
-			//to make sure this doesn't run over the array's bounds, i CANNOT be the last in the array
-			//------------------------------------------------------------------------------------------
-			if (i < (vectoredFile.size() - 1))	
-			{
-				fwi->word = vectoredFile[i];	//set the first word as i
-				fwi->updateSecondWord(vectoredFile[i + 1]);	//since there is a second word, set the second word as i+1
-			}
-			else
-			{
-				fwi->word = vectoredFile[i];	//set the first word as i since we've reached this point, this is the last word in the vector, so we don't add a second word
-			}
-			//------------------------------------------------------------------------------------------
-
-			//insert hashval, fwi into the hashtable
-			hashTable.insert(vectoredFile[i], fwi);	
-		}
-		else if (foundHash != NULL)
-		{
-			foundHash->updateCount();	//since the word already exists, increment the number of times it's already been found by one
-		}
-		//------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	}
 
+
+
+
+
+	////runs a procedure for inserting/updating the hashtable for the length of the vecHash
+	//for (int unsigned i = 0; i < vectoredFile.size(); i++)
+	//{
+	//	//FirstWordInfo * foundHash = NULL;	//creates an object that can be used
+	//	
+	//	FirstWordInfo * foundHash = new FirstWordInfo();
+	//	std::string currHashKey = hashTable.myHash(vectoredFile[i]);	//creates the hash of the word
+	//	//int currPos = hashTable.returnPos(currHashKey);	//return the position of where the hash is
+	//	foundHash = hashTable.returnRecordAt(currHashKey);	//based off a hashkey, return the object (if it exists)
+	//	
+	//	//check for the existence of the found val
+	//	//------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//	if (foundHash == NULL)		
+	//	{
+	//		//no object exists with the curHash value so we must create a new one
+	//		FirstWordInfo * fwi = new FirstWordInfo();
+
+	//		//to make sure this doesn't run over the array's bounds, i CANNOT be the last in the array
+	//		//------------------------------------------------------------------------------------------
+	//		if (i < (vectoredFile.size() - 1))	
+	//		{
+	//			fwi->word = vectoredFile[i];	//set the first word as i
+	//			fwi->updateSecondWord(vectoredFile[i + 1]);	//since there is a second word, set the second word as i+1
+	//		}
+	//		else
+	//		{
+	//			fwi->word = vectoredFile[i];	//set the first word as i since we've reached this point, this is the last word in the vector, so we don't add a second word
+	//		}
+	//		//------------------------------------------------------------------------------------------
+	//		
+	//		//insert hashval, fwi into the hashtable
+	//		hashTable.insert(currHashKey, fwi);	
+	//	}
+	//	else if (foundHash != NULL)
+	//	{
+	//		foundHash->updateCount();	//since the word already exists, increment the number of times it's already been found by one
+	//		//hashTable.returnPos(currHashKey);
+	//		hashTable.remove(currHashKey);
+	//		hashTable.insert(currHashKey, foundHash);
+	//	}
+	//	//------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	//}
 }
 
 //================================================================================================================//
