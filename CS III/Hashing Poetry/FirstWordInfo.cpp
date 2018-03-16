@@ -20,7 +20,7 @@ void FirstWordInfo::updateCount()
 //-----------------------------------------------------------//
 std::string FirstWordInfo::toString()
 {
-	std::string swlContents = "The word " + word + " has the following " + std::to_string(secondWordList.size()) + " possibilities: "; //prints "the word <word> has the following <size> possibilities: "
+	std::string swlContents = "The word \"" + word + "\" is said " + std::to_string(count) + " time(s) and has the following " + std::to_string(secondWordList.size()) + " possibilities: "; //prints "the word <word> has the following <size> possibilities: "
 
 	for (unsigned int i = 0; i < secondWordList.size(); i++)
 	{
