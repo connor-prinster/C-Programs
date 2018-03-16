@@ -136,10 +136,10 @@ void vecHash(std::vector<std::string> vectoredFile)
 				//if it is at least the second to last object
 				fwiForFilling->secondWordList.push_back(SecondWordInfo(vectoredFile[i + 1], 1));	//the vector now contains an anonymous swi object holding the word after currWord and a freq of one
 			}
-			//std::cout << fwiForFilling->toString();
+			
 			ht.insert(currHashKey, fwiForFilling);	//insert the newly filled object
 		}
-		else if (positionWhereItExists > 0)
+		else if (positionWhereItExists >= 0)
 		{
 			FirstWordInfo * fwiForFillingExisting = ht.returnRecordAt(positionWhereItExists);
 			fwiForFillingExisting->updateCount();	//since there is already an object with the same hash val, increase the amount of times it's called
@@ -147,7 +147,7 @@ void vecHash(std::vector<std::string> vectoredFile)
 			{
 				fwiForFillingExisting->updateSecondWord(vectoredFile[i + 1]);	//either add or increase the frequency of a word to the secondWord vector
 			}
-			//std::cout << fwiForFillingExisting->toString();
+			
 			ht.remove(currHashKey);	//remove the current outdated object before inserting the updated one
 			ht.insert(currHashKey, fwiForFillingExisting);	//insert the updated object
 		}	
@@ -159,5 +159,8 @@ void vecHash(std::vector<std::string> vectoredFile)
 //================================================================================================================//
 void poem(std::string word, int poemLength)
 {
+	for (int i = 0; i < poemLength; i++)
+	{
 
+	}
 }
