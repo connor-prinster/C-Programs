@@ -16,17 +16,19 @@ std::vector<std::string> stringSplit(std::string passString, std::string filenam
 void vecHash(std::vector<std::string>);	//will create a vecHash
 void poem(std::string word, int poemLength);
 std::string nextWordFromVec(FirstWordInfo *, int);
+void runTestVec(std::string firstWord, int length, bool showNot);
 
 int main()
 {
-	//----------------------------------------------------------------------//
-	//     each vector now holds each individual word of the *.txt file     //
-	//----------------------------------------------------------------------//
+	//-----------------------------------------------------------------------//
+	//     each vector now holds each individual word of each *.txt file     //
+	//-----------------------------------------------------------------------//
 	std::vector<std::string> clownPoemVec = fileToString("clown.txt");		
 	std::vector<std::string> greenPoemVec = fileToString("green.txt");	
 	std::vector<std::string> inchPoemVec = fileToString("inch.txt");
 	std::vector<std::string> PoePoemVec = fileToString("Poe.txt");
 	std::vector<std::string> SeussPoemVec = fileToString("Seuss.txt");
+
 	//--------------------------------------------------//
 	//     create poems (firstword, length, vector)     //
 	//--------------------------------------------------//
@@ -168,19 +170,19 @@ void poem(std::string word, int poemLength)
 	//would create a "rand() % count"
 	
 	std::string poemString = "";	//initializing the string 
-	std::string hashableWord = word;
-	std::string nextWord = "";
+	std::string wordToConcat = word;
 	
 	FirstWordInfo * fwi = new FirstWordInfo();
 	
 	for (int i = 0; i < poemLength; i++)
 	{
-		std::string hashedWord = ht.myHash(hashableWord);
+		std::string hashedWord = ht.myHash(wordToConcat);	//hash the passed word
 		int recPos = ht.whereDoesItExist(hashedWord);	//return position of where the key is found
 		fwi = ht.returnRecordAt(recPos);	//fwi is filled with the record found at recPos
-		nextWord = nextWordFromVec(fwi, (rand() % fwi->count));
-		hashableWord = nextWord;
-		poemString += (nextWord + " ");
+		poemString += (wordToConcat + " ");	//concatonate the hashed word to the poemString
+		//nextWord = nextWordFromVec(fwi, (rand() % fwi->count));	//access function to find the next word
+		//wordToConcat = nextWord;	//push the word to the 
+		wordToConcat = nextWordFromVec(fwi, (rand() % fwi->count));	//access function to find the next word
 	}
 	std::cout << poemString + "\n";
 }
@@ -203,4 +205,9 @@ std::string nextWordFromVec(FirstWordInfo * passFWI, int randomNum)
 		}
 	}
 	return possWords[randomNum];
+}
+
+void runTestVec(std::string firstWord, int length, bool showNot)
+{
+
 }
