@@ -17,13 +17,13 @@ std::vector<std::string> fileToString(std::string filename);	//converts file to 
 std::vector<std::string> stringSplit(std::string passString, std::string filename);	//converts string to a vector in fileToString
 void vecHash(std::vector<std::string>);	//will create a vecHash
 void poem(std::string word, int poemLength);
-std::string nextWordFromVec(FirstWordInfo *, unsigned int);
+std::string nextWordFromVec(std::string, unsigned int);
 void runTestVec(std::string first, int length, bool show, std::string filename);
 
 int main()
 {
 	//-----------------------------------------------------------------------//
-	//     each vector now holds each individual word of each *.txt file     //
+	//     each vector now holds each individual passedHashKey of each *.txt file     //
 	//-----------------------------------------------------------------------//
 	std::vector<std::string> clownPoemVec = fileToString("clown.txt");		
 	std::vector<std::string> greenPoemVec = fileToString("green.txt");	
@@ -44,11 +44,11 @@ int main()
 	ht.makeEmpty();
 
 	vecHash(inchPoemVec);
-	//runTestVec("computer", 50, false, "inch.txt");
+	runTestVec("computer", 50, false, "inch.txt");
 	ht.makeEmpty();
 
 	vecHash(PoePoemVec);
-	runTestVec("nevermore", 50, false, "Poe.txt");
+	runTestVec("nevermore", 50, true, "Poe.txt");
 	ht.makeEmpty();
 
 	vecHash(SeussPoemVec);
@@ -88,7 +88,7 @@ std::vector<std::string> fileToString(std::string filename)
 	}
 	for (unsigned int i = 0; i < completeVector.size(); i++)
 	{
-		completeString += (completeVector[i] + " "); //concatonates the word to the return string
+		completeString += (completeVector[i] + " "); //concatonates the passedHashKey to the return string
 	}
 
 	cleaningString(completeString);
@@ -142,16 +142,16 @@ void vecHash(std::vector<std::string> vectoredFile)
 {
 	for (unsigned int i = 0; i < vectoredFile.size(); i++)
 	{
-		std::string currWord = vectoredFile[i];	//from the vectoredFile, assign currWord to a word in the vector
+		std::string currWord = vectoredFile[i];	//from the vectoredFile, assign currWord to a passedHashKey in the vector
 		std::string currHashKey = ht.myHash(currWord);	//hash the currWord
 
 		
 		//if the object doesn't exist, we've got to make it exist
 		if (ht.find(currHashKey) == NULL)
 		{
-			FirstWordInfo * fwi = new FirstWordInfo(currWord, 1);	//assign fwi to a fwi object with word = currWord and count = 1
+			FirstWordInfo * fwi = new FirstWordInfo(currWord, 1);	//assign fwi to a fwi object with passedHashKey = currWord and count = 1
 
-			//if it is at least the second to last spot in the vectored file, the new object MUST have a second word
+			//if it is at least the second to last spot in the vectored file, the new object MUST have a second passedHashKey
 			if (i < vectoredFile.size() - 1)
 			{
 				fwi->updateSecondWord(vectoredFile[i + 1]);
@@ -179,20 +179,16 @@ void poem(std::string word, int poemLength)
 	
 	std::string poemString = "";	//initializing the string 
 	std::string wordToConcat = word;
-	
-	FirstWordInfo * fwi = new FirstWordInfo();
-	
+
 	for (unsigned int i = 0; i < poemLength; i++)
 	{
-		std::string hashedWord = ht.myHash(wordToConcat);	//hash the passed word
-		fwi = ht.find(hashedWord);
-		poemString += (wordToConcat + " ");	//concatonate the hashed word to the poemString
-		int randNum = (rand() % (fwi->count));
-		if (randNum == fwi->count)
-		{
-			randNum -= 1;	//to adjust for when it has to be accessed by a vector starting with index 0
-		}
-		wordToConcat = nextWordFromVec(fwi, randNum);	//access function to find the next word
+		std::string hashedWord = ht.myHash(wordToConcat); //hash the passedHashKey. First time is the one passed to the function, any time other than that is the passedHashKey updated at the end of this for-loop
+		FirstWordInfo * fwi = ht.find(hashedWord);
+		poemString += (wordToConcat + " "); //add "<passedHashKey> " in order to make sure a space is between each passedHashKey in the poem
+		int randNum = (rand() % (fwi->count)); 
+
+		wordToConcat = nextWordFromVec(hashedWord, randNum); 
+		word = wordToConcat;
 	}
 	std::cout << poemString + "\n";
 }
@@ -201,20 +197,28 @@ void poem(std::string word, int poemLength)
 //==========================================================================================//
 //          Create a Vector To Easily Determine Which Word Should Follow the First          //
 //==========================================================================================//
-std::string nextWordFromVec(FirstWordInfo * passFWI, unsigned int randomNum)
+std::string nextWordFromVec(std::string passedHashKey, unsigned int randomNum)
 {
-	std::vector<std::string> possWords;
 	std::string chosenWord = "";
-	
-	//runs a for-loop for as long as there are different words in secondWordList
-	for (unsigned int spotInSWL = 0; spotInSWL < passFWI->secondWordList.size(); spotInSWL++)
+	FirstWordInfo * fwi = ht.find(passedHashKey);
+	std::vector<std::string> possWords;
+	for (unsigned int swlSpot = 0; swlSpot < fwi->secondWordList.size(); swlSpot++)
 	{
-		//runs a for-loop for as long as the count of times a word is said
-		for (int j = 0; j < passFWI->secondWordList[spotInSWL].count; j++)
+		for (unsigned int swlCount = 0; swlCount < fwi->secondWordList[swlSpot].count; swlCount++)
 		{
-			possWords.push_back(passFWI->secondWordList[spotInSWL].word);
+			possWords.push_back(fwi->secondWordList[swlSpot].word);
 		}
 	}
+
+	////runs a for-loop for as long as there are different words in secondWordList
+	//for (unsigned int spotInSWL = 0; spotInSWL < fwi->secondWordList.size(); spotInSWL++)
+	//{
+	//	//runs a for-loop for as long as the count of times a passedHashKey is said
+	//	for (int j = 0; j < fwi->secondWordList[spotInSWL].count; j++)
+	//	{
+	//		possWords.push_back(fwi->secondWordList[spotInSWL].word);
+	//	}
+	//}
 	assert(randomNum < possWords.size());
 	return possWords[randomNum];
 }

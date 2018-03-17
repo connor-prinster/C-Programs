@@ -62,9 +62,9 @@ std::string HashTable<HashKey, HashRecord>::toString(int howMany)
 {
 	int ct = 0;
 	stringstream ss;
-	ss << "\n----------------------------------------------------------------------------------------\n";
-	ss << "                         toString Representation of the HashTable                         ";
-	ss << "\n----------------------------------------------------------------------------------------\n";
+	ss << "\n------------------------------------------------------------------------------------------------\n";
+	ss << "                         toString Representation of the Current HashTable                         ";
+	ss << "\n------------------------------------------------------------------------------------------------\n";
 	ss << "Current size " << hashTable.size() << endl;
 	for (int i = 0; i < hashTable.size() && ct < howMany; i++)
 		if (hashTable[i].info == ACTIVE){
