@@ -90,12 +90,12 @@ HashKey HashTable<HashKey, HashRecord>::myHash(const HashKey & x) const
 template <typename HashKey, typename HashRecord>
 int HashTable<HashKey, HashRecord>::findPos(const HashKey & hashedVal) const
 {
-	int offset = 1;
+	unsigned int offset = customProbe2(hashedVal);
 	unsigned int index = customProbe1(hashedVal);
 
 	while (hashTable[index].info != EMPTY && hashTable[index].key != hashedVal)
 	{
-		index += offset;  // Compute ith probe
+		index = (index += offset) % hashTable.size();  // Compute ith probe
 		offset += 2;
 		if (index >= (int)hashTable.size())    // Cheaper than  mod
 			index -= hashTable.size();

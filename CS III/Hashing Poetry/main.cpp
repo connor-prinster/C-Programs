@@ -48,7 +48,7 @@ int main()
 	ht.makeEmpty();
 
 	vecHash(PoePoemVec);
-	runTestVec("nevermore", 50, true, "Poe.txt");
+	runTestVec("nevermore", 50, false, "Poe.txt");
 	ht.makeEmpty();
 
 	vecHash(SeussPoemVec);
@@ -209,7 +209,14 @@ std::string nextWordFromVec(std::string passedHashKey, unsigned int randomNum)
 			possWords.push_back(fwi->secondWordList[swlSpot].word);
 		}
 	}
-	assert(randomNum < possWords.size());
+	if (randomNum == possWords.size() && randomNum != 0)
+	{
+		if (randomNum != 0)
+		{
+			randomNum = randomNum - 1;
+			assert(randomNum < possWords.size());
+		}
+	}
 	return possWords[randomNum];
 }
 //==========================================================================================//
