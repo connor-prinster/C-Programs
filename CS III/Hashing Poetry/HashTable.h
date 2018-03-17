@@ -43,7 +43,7 @@ public:
 	void makeEmpty();
 	std::string toString(int howMany = 50);
 	HashKey myHash(const HashKey & x) const;
-	/*int whereDoesItExist(const HashKey & x) const;
+	/*int whereDoesItExist(const HashKey & hashedVal) const;
 	HashRecord * returnRecordAt(int pos);*/
 
 private:
@@ -110,27 +110,18 @@ HashKey HashTable<HashKey, HashRecord>::myHash(const HashKey & x) const
 
 // return the subscript where passedHash is located in the hash table.    
 template <typename HashKey, typename HashRecord>
-int HashTable<HashKey, HashRecord>::findPos(const HashKey & x) const
+int HashTable<HashKey, HashRecord>::findPos(const HashKey & hashedVal) const
 {
 	int offset = 1;
-	int iteration = 0;
-	int origPos = customProbe1(x);		//computing the first hash
-	int index = origPos;				//creating a copy of origPos
-	int customStep = customProbe2(x);	//computing the second hash
+	unsigned int index = customProbe1(hashedVal);
 
-	while (hashTable[index].info != EMPTY && hashTable[index].key != x)
+	while (hashTable[index].info != EMPTY && hashTable[index].key != hashedVal)
 	{
-		iteration = offset++ * customStep;
-		if ((origPos + iteration) > hashTable.size())
-		{
-			index = (origPos + iteration) % hashTable.size();	//dealing with second hashing
-		}
-		else
-		{
-			index = origPos + iteration;	//not dealing with second hashing
-		}
+		index += offset;  // Compute ith probe
+		offset += 2;
+		if (index >= (int)hashTable.size())    // Cheaper than  mod
+			index -= hashTable.size();
 	}
-
 	return index;
 };
 //=================================================================================
