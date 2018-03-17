@@ -217,6 +217,9 @@ std::string nextWordFromVec(std::string passedHashKey, unsigned int randomNum)
 			assert(randomNum < possWords.size());
 		}
 	}
+
+	assert(possWords.size() != 0 && "There couldn't be a following word as this is the last word");
+
 	return possWords[randomNum];
 }
 //==========================================================================================//
