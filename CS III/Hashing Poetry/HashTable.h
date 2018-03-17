@@ -75,28 +75,6 @@ std::string HashTable<HashKey, HashRecord>::toString(int howMany)
 	return ss.str();
 }
 
-////Returns the record at the correct address
-//template <typename HashKey, typename HashRecord>
-//int HashTable<HashKey, HashRecord>::whereDoesItExist(const HashKey & passHash) const
-//{
-//	int posFound = -1;
-//	for (unsigned int i = 0; i < hashTable.size(); i++)
-//	{
-//		if (hashTable[i].key == passHash)
-//		{
-//			posFound = i;	//the current spot in the HashTable is assigned to posFound
-//		}
-//	}
-//	return posFound;
-//}
-//
-////Returns the index of the word
-//template <typename HashKey, typename HashRecord>
-//HashRecord * HashTable<HashKey, HashRecord>::returnRecordAt(int pos)
-//{
-//	return hashTable[pos].rec;
-//}
-
 //====================================//
 //        Custom Hash Function        //
 //====================================//

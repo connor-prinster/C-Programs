@@ -209,16 +209,6 @@ std::string nextWordFromVec(std::string passedHashKey, unsigned int randomNum)
 			possWords.push_back(fwi->secondWordList[swlSpot].word);
 		}
 	}
-
-	////runs a for-loop for as long as there are different words in secondWordList
-	//for (unsigned int spotInSWL = 0; spotInSWL < fwi->secondWordList.size(); spotInSWL++)
-	//{
-	//	//runs a for-loop for as long as the count of times a passedHashKey is said
-	//	for (int j = 0; j < fwi->secondWordList[spotInSWL].count; j++)
-	//	{
-	//		possWords.push_back(fwi->secondWordList[spotInSWL].word);
-	//	}
-	//}
 	assert(randomNum < possWords.size());
 	return possWords[randomNum];
 }
