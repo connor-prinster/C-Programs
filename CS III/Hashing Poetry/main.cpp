@@ -4,6 +4,8 @@
 #include <vector>
 #include <stdlib.h>
 #include <time.h>
+#include <windows.h>
+#include <assert.h>
 
 #include "HashTable.h"
 #include "FirstWordInfo.h"
@@ -32,7 +34,7 @@ int main()
 	//--------------------------------------------------//
 	//     create poems (firstword, length, vector)     //
 	//--------------------------------------------------//
-
+	
 	vecHash(clownPoemVec);
 	runTestVec("go", 20, true, "clown.txt");
 
@@ -40,13 +42,14 @@ int main()
 	runTestVec("sam", 20, true, "green.txt");
 
 	vecHash(inchPoemVec);
-	runTestVec("computer", 50, false, "inch.txt");
+	//runTestVec("computer", 50, false, "inch.txt");
 
-	//vecHash(PoePoemVec);
-	//runTestVec("nevermore", 50, false, "Poe.txt");
-
-	vecHash(SeussPoemVec);
-	runTestVec("mordecai", 50, false, "Seuss.txt");
+	vecHash(PoePoemVec);
+	runTestVec("nevermore", 50, false, "Poe.txt");
+	
+	//vecHash(SeussPoemVec);
+	//runTestVec("mordecai", 50, false, "Seuss.txt");
+	//ht.makeEmpty();
 
 	std::cout << "\n---PRESS 'ENTER' TO EXIT---" << std::endl;
 	std::cin.get();	//just so things work on my machine
@@ -135,39 +138,29 @@ void vecHash(std::vector<std::string> vectoredFile)
 {
 	for (unsigned int i = 0; i < vectoredFile.size(); i++)
 	{
+		std::string currWord = vectoredFile[i];	//from the vectoredFile, assign currWord to a word in the vector
+		std::string currHashKey = ht.myHash(currWord);	//hash the currWord
+
 		
-		FirstWordInfo * fwiForFilling = new FirstWordInfo();
-		std::string currWord = vectoredFile[i];
-		std::string currHashKey = ht.myHash(currWord);
-
-		int positionWhereItExists = 0; //bool to see if a record with the same hashkey exists already
-		positionWhereItExists = ht.whereDoesItExist(currHashKey);
-		if (positionWhereItExists < 0)
+		//if the object doesn't exist, we've got to make it exist
+		if (ht.find(currHashKey) == NULL)
 		{
-			//because whereDoesItExist returned false, must create new object
-			fwiForFilling->word = currWord;	//this object now has the currWord assigned to it
-			fwiForFilling->count = 1;	//since it's only appeared once, the word now has a frequency of one
+			FirstWordInfo * fwi = new FirstWordInfo(currWord, 1);	//assign fwi to a fwi object with word = currWord and count = 1
 
-			//because this may or may not be the last word in the list, we now have an if statement to decide if we add a swi to avoid overrunning bounds
-			if (i < (vectoredFile.size() - 1))
+			//if it is at least the second to last spot in the vectored file, the new object MUST have a second word
+			if (i < vectoredFile.size() - 1)
 			{
-				//if it is at least the second to last object
-				fwiForFilling->secondWordList.push_back(SecondWordInfo(vectoredFile[i + 1], 1));	//the vector now contains an anonymous swi object holding the word after currWord and a freq of one
+				fwi->updateSecondWord(vectoredFile[i + 1]);
 			}
-			
-			ht.insert(currHashKey, fwiForFilling);	//insert the newly filled object
+			ht.insert(currHashKey, fwi);	//insert the new object into the hashtable
 		}
-		else if (positionWhereItExists >= 0)
+		else
 		{
-			FirstWordInfo * fwiForFillingExisting = ht.returnRecordAt(positionWhereItExists);
-			fwiForFillingExisting->updateCount();	//since there is already an object with the same hash val, increase the amount of times it's called
+			ht.find(currHashKey)->updateCount();
 			if (i < (vectoredFile.size() - 1))
 			{
-				fwiForFillingExisting->updateSecondWord(vectoredFile[i + 1]);	//either add or increase the frequency of a word to the secondWord vector
+				ht.find(currHashKey)->updateSecondWord(vectoredFile[i + 1]);
 			}
-			
-			ht.remove(currHashKey);	//remove the current outdated object before inserting the updated one
-			ht.insert(currHashKey, fwiForFillingExisting);	//insert the updated object
 		}	
 	}
 }
@@ -188,10 +181,14 @@ void poem(std::string word, int poemLength)
 	for (int i = 0; i < poemLength; i++)
 	{
 		std::string hashedWord = ht.myHash(wordToConcat);	//hash the passed word
-		int recPos = ht.whereDoesItExist(hashedWord);	//return position of where the key is found
-		fwi = ht.returnRecordAt(recPos);	//fwi is filled with the record found at recPos
+		fwi = ht.find(hashedWord);
 		poemString += (wordToConcat + " ");	//concatonate the hashed word to the poemString
-		wordToConcat = nextWordFromVec(fwi, (rand() % fwi->count));	//access function to find the next word
+		int randNum = (rand() % (fwi->count));
+		if (randNum == fwi->count)
+		{
+			randNum -= 1;	//to adjust for when it has to be accessed by a vector starting with index 0
+		}
+		wordToConcat = nextWordFromVec(fwi, randNum);	//access function to find the next word
 	}
 	std::cout << poemString + "\n";
 }
@@ -214,6 +211,7 @@ std::string nextWordFromVec(FirstWordInfo * passFWI, int randomNum)
 			possWords.push_back(passFWI->secondWordList[spotInSWL].word);
 		}
 	}
+	assert(randomNum < possWords.size());
 	return possWords[randomNum];
 }
 //==========================================================================================//

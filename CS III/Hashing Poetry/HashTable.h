@@ -43,8 +43,8 @@ public:
 	void makeEmpty();
 	std::string toString(int howMany = 50);
 	HashKey myHash(const HashKey & x) const;
-	int whereDoesItExist(const HashKey & x) const;
-	HashRecord * returnRecordAt(int pos);
+	/*int whereDoesItExist(const HashKey & x) const;
+	HashRecord * returnRecordAt(int pos);*/
 
 private:
 	vector<HashEntry<HashKey, HashRecord>> hashTable;
@@ -62,40 +62,40 @@ std::string HashTable<HashKey, HashRecord>::toString(int howMany)
 {
 	int ct = 0;
 	stringstream ss;
-	ss << "\n========================================================================================\n";
+	ss << "\n----------------------------------------------------------------------------------------\n";
 	ss << "                         toString Representation of the HashTable                         ";
-	ss << "\n========================================================================================\n";
+	ss << "\n----------------------------------------------------------------------------------------\n";
 	ss << "Current size " << hashTable.size() << endl;
 	for (int i = 0; i < hashTable.size() && ct < howMany; i++)
 		if (hashTable[i].info == ACTIVE){
 			ss << hashTable[i].rec->toString();
 		     ct++;
 		}
-	ss << "==============================================================================================\n";
+	ss << "----------------------------------------------------------------------------------------";
 	return ss.str();
 }
 
-//Returns the record at the correct address
-template <typename HashKey, typename HashRecord>
-int HashTable<HashKey, HashRecord>::whereDoesItExist(const HashKey & passHash) const
-{
-	int posFound = -1;
-	for (unsigned int i = 0; i < hashTable.size(); i++)
-	{
-		if (hashTable[i].key == passHash)
-		{
-			posFound = i;	//the current spot in the HashTable is assigned to posFound
-		}
-	}
-	return posFound;
-}
-
-//Returns the index of the word
-template <typename HashKey, typename HashRecord>
-HashRecord * HashTable<HashKey, HashRecord>::returnRecordAt(int pos)
-{
-	return hashTable[pos].rec;
-}
+////Returns the record at the correct address
+//template <typename HashKey, typename HashRecord>
+//int HashTable<HashKey, HashRecord>::whereDoesItExist(const HashKey & passHash) const
+//{
+//	int posFound = -1;
+//	for (unsigned int i = 0; i < hashTable.size(); i++)
+//	{
+//		if (hashTable[i].key == passHash)
+//		{
+//			posFound = i;	//the current spot in the HashTable is assigned to posFound
+//		}
+//	}
+//	return posFound;
+//}
+//
+////Returns the index of the word
+//template <typename HashKey, typename HashRecord>
+//HashRecord * HashTable<HashKey, HashRecord>::returnRecordAt(int pos)
+//{
+//	return hashTable[pos].rec;
+//}
 
 //====================================//
 //        Custom Hash Function        //
@@ -120,7 +120,7 @@ int HashTable<HashKey, HashRecord>::findPos(const HashKey & x) const
 
 	while (hashTable[index].info != EMPTY && hashTable[index].key != x)
 	{
-		iteration = offset++ * customStep;                     
+		iteration = offset++ * customStep;
 		if ((origPos + iteration) > hashTable.size())
 		{
 			index = (origPos + iteration) % hashTable.size();	//dealing with second hashing

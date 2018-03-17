@@ -3,7 +3,7 @@
 FirstWordInfo::FirstWordInfo()			 
 {							
 	word = "";
-	count = 0;
+	count = 1;
 }										 
 FirstWordInfo::~FirstWordInfo()			 
 {										 
@@ -50,7 +50,7 @@ void FirstWordInfo::updateSecondWord(std::string word)
 	{
 		if (secondWordList[i].word == word)
 		{
-			secondWordList[i].increment();	//since the word was found, it needs to be added
+			secondWordList[i].increment();	//since the word was found, it needs to be incremented
 			wordWasFound = true;
 		}
 	}
