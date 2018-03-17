@@ -102,9 +102,6 @@ int HashTable<HashKey, HashRecord>::findPos(const HashKey & hashedVal) const
 	}
 	return index;
 };
-//=================================================================================
-//							 //
-//===========================//
 
 // Remove all elements of the table by setting status to empty.
 // Have you seen the range based loop for accessing elements of a vector?
@@ -145,12 +142,6 @@ bool HashTable<HashKey, HashRecord>::isActive(int currentPos) const
 	return hashTable[currentPos].info == ACTIVE;
 };
 
-//========================//
-//ACTUAL HASHING FUNCTIONS//
-//=============================================================================================================================
-//---------------------
-//for finding first pos
-//---------------------
 template<typename HashKey, typename HashRecord>
 size_t HashTable<HashKey, HashRecord>::customProbe1(const HashKey & x) const
 {
@@ -161,9 +152,7 @@ size_t HashTable<HashKey, HashRecord>::customProbe1(const HashKey & x) const
 	}
 	return (hashKeyVal1 % hashTable.size());	//returning the modified hashKeyVal1 mod the size of the table
 };
-//----------------------
-//for finding second pos
-//----------------------
+
 template<typename HashKey, typename HashRecord>
 size_t HashTable<HashKey, HashRecord>::customProbe2(const HashKey & x) const
 {
@@ -175,9 +164,6 @@ size_t HashTable<HashKey, HashRecord>::customProbe2(const HashKey & x) const
 	unsigned int returnHashKeyVal2 = 44497 - (hashKeyVal2 % 44497);
 	return returnHashKeyVal2;
 }
-//=============================================================================================================================
-//						  //
-//========================//
 
 // Use lazy deletion to remove an element
 // Return boolean to indicate success of operation

@@ -40,7 +40,7 @@ int main()
 	ht.makeEmpty();
 
 	vecHash(greenPoemVec);
-	runTestVec("sam",20, true, "green.txt");
+	runTestVec("sam", 20, true, "green.txt");
 	ht.makeEmpty();
 
 	vecHash(inchPoemVec);
