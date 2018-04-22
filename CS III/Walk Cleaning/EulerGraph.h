@@ -16,8 +16,6 @@ public:
 	EulerGraph(std::string filename, std::ostream & passFout);
 
 	std::string originFilename;	//just easy access for the original filename;
-	std::vector<Node *> vectorOfNodes;	//lists all the Nodes in the graph 
-	std::vector<Edge *> vectorOfEdges;	//lists all the Edges in the graph
 	void generateAdjacencyMatrix(std::string filename);
 	
 	void computeTour(std::ostream & passFout);

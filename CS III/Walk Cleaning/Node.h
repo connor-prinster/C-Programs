@@ -5,8 +5,7 @@
 class Node
 {
 public:
-	Node();
-	~Node();
+	Node(std::string title);
 
 	std::string title;
 	int titleInt;

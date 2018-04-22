@@ -1,6 +1,6 @@
 #include "AdjacencyMatrix.h"
 
-AdjacencyMatrix::AdjacencyMatrix(int n)
+AdjacencyMatrix::AdjacencyMatrix()
 {
 	//resizes to make sure that everything is the correct size before filling it.
 	matrix.resize(n);
@@ -17,6 +17,30 @@ AdjacencyMatrix::AdjacencyMatrix(int n)
 			matrix[i][j] = 0;
 		}
 	}
+}
+
+void AdjacencyMatrix::fillFromFile(std::string filename)
+{
+	std::ifstream fin(filename);
+	fin >> this->numNodes >> this->numConnections;	//the first line in the text file is "nodes connections"
+
+	//-----------------------------------------------//
+	//     resizing the outer and inner matrices     //
+	//-----------------------------------------------//
+	matrix.resize(numNodes);	//outer matrix
+	for (int i = 0; i < numNodes; i++)
+	{
+		matrix[i].resize(numNodes);	//all the inner ones
+	}
+
+	//--------------------------------------//
+	//     Filling in the vectorOfNodes     //
+	//--------------------------------------//
+	while (!fin.eof())
+	{
+
+	}
+	fin.close();
 }
 
 void AdjacencyMatrix::addEdge(int origin, int destination)
