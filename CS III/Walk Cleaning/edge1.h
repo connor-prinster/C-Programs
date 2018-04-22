@@ -10,6 +10,14 @@ public:
 	 int cycleID;  // Cycle which the edge is a member of, -1 if it is included in no cycle
 	 bool used;    // true if edge is used in final tour
 
+	Edge(int fromNode, int toNode)
+	{
+		this->fromNode = fromNode;
+		this->toNode = toNode;
+		this->cycleID = -1;
+		this->used = false;
+	}
+
    // Create a string version of Edge
    // Edge endpoints are stored as numbers, but printed as characters.
    string toString()

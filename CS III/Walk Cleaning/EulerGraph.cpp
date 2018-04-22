@@ -10,7 +10,24 @@ void EulerGraph::computeTour(std::ostream & passFout)
 
 }
 
-bool EulerGraph::verifyEuler()
-{
 
+void EulerGraph::generateAdjacencyMatrix(std::string filename)
+{
+	std::ifstream fin(filename);
+	int numNodes;
+	int numConnections;
+	fin >> numNodes >> numConnections;
+	adjacencyMatrix.numNodes = numNodes;
+	adjacencyMatrix.numConnections = numConnections;
+
+	while (!fin.eof())
+	{
+		char fromNodeChar;
+		char toNodeChar;
+		fin >> fromNodeChar >> toNodeChar;
+
+		int fromNodeFinal = fromNodeChar;	//char to int is apparently super easy?
+		int toNodeFinal = toNodeChar;
+		adjacencyMatrix.addEdge(fromNodeFinal, toNodeFinal);	//takes to a public method that pushes back the edgeVector
+	}
 }
