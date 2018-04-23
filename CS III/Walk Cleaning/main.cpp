@@ -5,17 +5,19 @@
 #include <assert.h>
 using namespace std;
 
-void main ()
+void main()
 {  	ofstream fout;
 	fout.open("tourOut.txt");
-	assert(fout);	//makesure this thing is actually lit.
+	assert(fout);	//make sure this thing is actually lit.
 
-   EulerGraph g("prog7A.txt", fout);
+   EulerGraph g("prog7A.txt");
    g.computeTour(fout);  // If I want the output to appear on console, I just make the parameter "cout"
 
-   EulerGraph g1("prog7B.txt",fout);
+   EulerGraph g1("prog7B.txt");
    g1.computeTour(fout);
 
-   EulerGraph g2("prog7C.txt",cout);
+   EulerGraph g2("prog7C.txt");
    g2.computeTour(cout);
+
+   std::cin.get();
 }

@@ -6,21 +6,18 @@
 #include <fstream>
 
 #include "AdjacencyMatrix.h"
-#include "edge1.h"
-
-using namespace std;
 
 class EulerGraph
 {
 public:
-	EulerGraph(std::string filename, std::ostream & passFout);
+	EulerGraph(std::string filename);
 
-	std::string originFilename;	//just easy access for the original filename;
+	std::string m_filename;	//just easy access for the original filename;
+
 	void generateAdjacencyMatrix(std::string filename);
-	
 	void computeTour(std::ostream & passFout);
 
 private:
-	AdjacencyMatrix adjacencyMatrix; //no one else needs to access this, so we're keeping it private just for kicks and giggles
+	//AdjacencyMatrix adjacencyMatrix; //no one else needs to access this, so we're keeping it private just for kicks and giggles
 };
 

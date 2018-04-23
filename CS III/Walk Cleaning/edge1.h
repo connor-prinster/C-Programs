@@ -10,40 +10,29 @@ public:
 	 int cycleID;  // Cycle which the edge is a member of, -1 if it is included in no cycle
 	 bool used;    // true if edge is used in final tour
 
-	Edge(int fromNode, int toNode)
-	{
-		this->fromNode = fromNode;
-		this->toNode = toNode;
-		this->cycleID = -1;
-		this->used = false;
-	}
-
    // Create a string version of Edge
    // Edge endpoints are stored as numbers, but printed as characters.
    string toString()
-   { 
-	 ostringstream os;  // allows string to act like stream to use stream operations
+   { ostringstream os;  // allows string to act like stream to use stream operations
 	 char t = toNode + 'A';
 	 char f = fromNode + 'A';
-     os << "   "<<f << "-"<<t  << "(" << cycleID << ")" ;
-     return os.str();
+       os << "   "<<f << "-"<<t  << "(" << cycleID << ")" ;
+       return os.str();
    }  
 
    // if oneNode is an endpoint, return other endpoint
    int getOtherEndpoint(int oneNode)
-   { 
-	 if (fromNode==oneNode) return toNode;
+   { if (fromNode==oneNode) return toNode;
      assert(toNode==oneNode);
      return fromNode;
    }
 
    // Set initial values of an edge from Node f to Node t
    void set(char f, char t)
-   {  
-	  fromNode = f - 'A';
-      toNode = t - 'A';
+   {  fromNode = f -'A';
+      toNode = t-'A';
       cycleID = -1;
       used = false;
-      //cout << "creating Edge " << toString() <<endl;
+      //cout << "creating Edge " << toString()<<endl;
    }
 };

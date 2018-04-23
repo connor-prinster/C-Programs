@@ -1,27 +1,14 @@
 #include "AdjacencyMatrix.h"
 
-AdjacencyMatrix::AdjacencyMatrix()
+AdjacencyMatrix::AdjacencyMatrix(std::string filename)
 {
-	//resizes to make sure that everything is the correct size before filling it.
-	matrix.resize(n);
-	for (int i = 0; i < n; i++)
-	{
-		matrix[i].resize(n);
-	}
-
-	//fills array with 0's
-	for (int i = 0; i < n; i++)
-	{
-		for (int j = 0; j < n; j++)
-		{
-			matrix[i][j] = 0;
-		}
-	}
+	m_filename = filename;	//easy to just have this listed
+	fillFromFile();
 }
 
-void AdjacencyMatrix::fillFromFile(std::string filename)
+void AdjacencyMatrix::fillFromFile()
 {
-	std::ifstream fin(filename);
+	std::ifstream fin(m_filename);
 	fin >> this->numNodes >> this->numConnections;	//the first line in the text file is "nodes connections"
 
 	//-----------------------------------------------//
@@ -38,7 +25,16 @@ void AdjacencyMatrix::fillFromFile(std::string filename)
 	//--------------------------------------//
 	while (!fin.eof())
 	{
+		char originNode;
+		char endNode;
+		fin >> originNode >> endNode;
 
+		int intFromCharOrigin = originNode - 'A';
+		int intFromCharEnd = endNode - 'A';
+
+		//new Edge(intFromCharOrigin, intFromCharEnd);
+
+		//vectorOfEdges.push_back(new Edge(intFromCharOrigin, intFromCharEnd));
 	}
 	fin.close();
 }
@@ -53,9 +49,9 @@ void AdjacencyMatrix::printMatrix()
 	std::cout << " //======================================\\  \n";		//just a typical header that I personally think makes things more readable
 	std::cout << "||   Current State of Adjacency Matrix:   || \n";
 	std::cout << " \\======================================//  \n";
-	for (int i = 0; i < matrix.size(); i++)	//prints the outer vector
+	for (unsigned int i = 0; i < matrix.size(); i++)	//prints the outer vector
 	{	
-		for (int j = 0; j < matrix[i].size(); j++)		//prints the inner vector
+		for (unsigned int j = 0; j < matrix[i].size(); j++)		//prints the inner vector
 		{
 			std::cout << matrix[i][j] << " ";	//will printMatrix completely horizontally with a space between bits of data
 		}
