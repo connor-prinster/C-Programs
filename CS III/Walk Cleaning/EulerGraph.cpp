@@ -4,7 +4,7 @@ EulerGraph::EulerGraph(std::string filename)
 {
 	//std::cout << "Generating the graph for " << filename << std::endl;
 	m_filename = filename;	//the filename is now hardcoded in the EulerGraph object
-	generateAdjacencyMatrix();	//generates it's custom matrix
+	generateAdjacencyMatrix();	//generates it's custom m_matrix
 	if (m_adjacencyMatrix.m_isEuler)	//if it's Euler, computeTour()
 	{
 		computeTour();

@@ -19,6 +19,6 @@ public:
 
 private:
 	AdjacencyMatrix m_adjacencyMatrix; //this m_adjacencyMatrix is first built completely generic but will then be filled with custom data in generateAdjacencyMatrix()
-	std::vector<int> tourPath;
+	std::vector<int> m_tourPath;
 };
 

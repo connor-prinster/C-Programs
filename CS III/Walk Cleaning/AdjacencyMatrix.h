@@ -13,8 +13,8 @@ public:
 	AdjacencyMatrix() {}	//standar constructor
 	AdjacencyMatrix(std::string filename);	//custom constructor
 
-	int numConnections;	//total number of edges in the graph
-	int numNodes;	//number of uniquely named nodes (a, b, ...)
+	int m_numConnections;	//total number of edges in the graph
+	int m_numNodes;	//number of uniquely named nodes (a, b, ...)
 	std::string m_filename;
 	bool m_isEuler;
 
@@ -24,7 +24,7 @@ public:
 	bool isEuler();
 
 
-	std::vector< std::vector<int> > matrix;	//the actual adjacency vector
-	std::vector< Edge * > vectorOfEdges; //vector of edges
+	std::vector< std::vector<int> > m_matrix;	//the actual adjacency vector
+	std::vector< Edge * > m_vectorOfEdges; //vector of edges
 };
 
