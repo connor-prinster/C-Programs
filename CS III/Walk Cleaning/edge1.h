@@ -8,7 +8,7 @@ public:
      int m_toNode;  // Subscript of one endpoint in node array.  Nodes are stored as numbers, but printed as characters.
 	 int m_fromNode; // Subscript of other endpoint in node array
 	 int m_cycleID;  // Cycle which the edge is a member of, -1 if it is included in no cycle
-	 bool m_used;    // true if edge is m_used in final tour
+	 bool m_labeled;    // true if edge is m_labeled in final tour
 
    // Create a string version of Edge
    // Edge endpoints are stored as numbers, but printed as characters.
@@ -40,7 +40,7 @@ public:
 		 m_fromNode = f - 'A';
 		 m_toNode = t - 'A';
 		 m_cycleID = -1;
-		 m_used = false;
+		 m_labeled = false;
 		 //cout << "creating Edge " << toString()<<endl;
 	 }
 };
