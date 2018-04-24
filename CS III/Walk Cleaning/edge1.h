@@ -13,7 +13,6 @@ public:
 
    // Create a string version of Edge
    // Edge endpoints are stored as numbers, but printed as characters.
-
 	 Edge(char originNode, char endNode)
 	 {
 		 set(originNode, endNode);
