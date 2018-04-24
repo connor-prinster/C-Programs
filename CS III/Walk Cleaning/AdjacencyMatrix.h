@@ -23,7 +23,6 @@ public:
 	void fillFromFile();	//from the file listed in the custom constructor this will fill the AdjacencyMatrix object with its data
 	bool isEuler();
 
-
 	std::vector< std::vector<int> > m_matrix;	//the actual adjacency vector
 	std::vector< Edge * > m_vectorOfEdges; //vector of edges
 };

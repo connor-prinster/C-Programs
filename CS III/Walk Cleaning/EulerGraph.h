@@ -16,6 +16,8 @@ public:
 
 	void generateAdjacencyMatrix();	//the 'm_adjacencyMatrix' object is customized from the specific file passed
 	void computeTour();	//the meat of the assignment
+	void computeCycles();
+	bool edgesAreAllUsed();
 
 private:
 	AdjacencyMatrix m_adjacencyMatrix; //this m_adjacencyMatrix is first built completely generic but will then be filled with custom data in generateAdjacencyMatrix()

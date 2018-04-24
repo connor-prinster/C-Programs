@@ -25,3 +25,23 @@ void EulerGraph::computeTour()
 	std::cout << "Going through the tour\n";
 	m_adjacencyMatrix.printMatrix();
 }
+
+void EulerGraph::computeCycles()
+{
+	while (!edgesAreAllUsed())	//while all the edges aren't used, keep going through this method
+	{
+
+	}
+}
+
+bool EulerGraph::edgesAreAllUsed()
+{
+	for (unsigned int i = 0; i < m_adjacencyMatrix.m_vectorOfEdges.size(); i++)	//run through all edges in the adjacencyMatrix
+	{
+		if (!m_adjacencyMatrix.m_vectorOfEdges[i]->m_used)	//if even one edge is not used, return false
+		{
+			return false;
+		}
+	}
+	return true;	//if we make it here then all the edges are used and return true
+}
