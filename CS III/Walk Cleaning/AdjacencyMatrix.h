@@ -10,7 +10,7 @@
 class AdjacencyMatrix
 {
 public:
-	AdjacencyMatrix() {}	//standar constructor
+	AdjacencyMatrix() {}	//standard constructor
 	AdjacencyMatrix(std::string filename);	//custom constructor
 
 	void addEdge(int origin, int destination); //fills in the spot in the array (x, y) with (origin, destination)

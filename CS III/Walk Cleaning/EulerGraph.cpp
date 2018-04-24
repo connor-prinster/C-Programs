@@ -28,13 +28,15 @@ void EulerGraph::computeTour()
 
 void EulerGraph::computeCycles()
 {
-	while (!edgesAreAllUsed())	//while all the edges aren't used, keep going through this method
-	{
-		for (unsigned int i = 0; i < m_adjacencyMatrix.m_vectorOfEdges.size(); i++)
-		{
+	//while (!edgesAreAllUsed())	//while all the edges aren't used, keep going through this method
+	//{
+	//	for (unsigned int i = 0; i < m_adjacencyMatrix.m_vectorOfEdges.size(); i++)
+	//	{
 
-		}
-	}
+	//	}
+	//}
+	int originalNode;
+
 }
 
 bool EulerGraph::edgesAreAllUsed()
