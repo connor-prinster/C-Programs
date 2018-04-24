@@ -4,13 +4,23 @@ AdjacencyMatrix::AdjacencyMatrix(std::string filename)	//custom constructor that
 {
 	m_filename = filename;	//easy to just have this hardcoded
 	fillFromFile();
+	m_isEuler = isEuler();
 }
 
-AdjacencyMatrix::AdjacencyMatrix()	//generic constructor
+bool AdjacencyMatrix::isEuler()
 {
-	m_filename = "";
-	numConnections = 0;
-	numNodes = 0;
+	for (unsigned int i = 0; i < matrix.size(); i++)	//check rows
+	{
+		int toCheckIfEven = 0;	//initialize value
+		for (unsigned int j = 0; j < matrix[i].size(); j++)	//check cols
+		{
+			toCheckIfEven += matrix[i][j];	//since every value in the matrix is either one or zero, adding them together will either be meaningless or increment by one
+		}
+		if (toCheckIfEven % 2 != 0)	//if the sum is not even that means the matrix column has an uneven number of connections
+			return false;		//return false if not even
+		toCheckIfEven = 0;
+	}
+	return true;
 }
 
 void AdjacencyMatrix::fillFromFile()
@@ -37,8 +47,8 @@ void AdjacencyMatrix::fillFromFile()
 		fin >> originNode >> endNode;	//fills the above two variables so an edge can be made
 		Edge * tempEdge = new Edge(originNode, endNode);
 		tempEdge->set(originNode, endNode);
-		addEdge(originNode, endNode);
 		vectorOfEdges.push_back(tempEdge);	//filling the vector with all the edges from the file
+		addEdge(originNode, endNode);
 	}
 	fin.close();	//closes the fin object
 }

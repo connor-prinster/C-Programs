@@ -12,11 +12,11 @@ void main()
 	EulerGraph g2("prog7C.txt");
 
 	//computes the tour of the given object
-	g.computeTour();
+	/*g.computeTour();
 	g1.computeTour();
-	g2.computeTour();
+	g2.computeTour();*/
 
-	//a small asthetic to make my machine run cleanly
+	//a small asthetic to make my machine run nicely
 	std::cout << "Press any key to end program...";
 	std::cin.get();
    
