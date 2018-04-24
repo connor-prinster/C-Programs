@@ -6,6 +6,13 @@ AdjacencyMatrix::AdjacencyMatrix(std::string filename)
 	fillFromFile();
 }
 
+AdjacencyMatrix::AdjacencyMatrix()
+{
+	m_filename = "";
+	numConnections = 0;
+	numNodes = 0;
+}
+
 void AdjacencyMatrix::fillFromFile()
 {
 	std::ifstream fin(m_filename);
@@ -34,7 +41,8 @@ void AdjacencyMatrix::fillFromFile()
 
 		//new Edge(intFromCharOrigin, intFromCharEnd);
 
-		//vectorOfEdges.push_back(new Edge(intFromCharOrigin, intFromCharEnd));
+		Edge * tempEdge = new Edge(originNode, endNode);
+		tempEdge->toString();
 	}
 	fin.close();
 }

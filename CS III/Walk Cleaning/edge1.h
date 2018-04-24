@@ -12,27 +12,35 @@ public:
 
    // Create a string version of Edge
    // Edge endpoints are stored as numbers, but printed as characters.
-   string toString()
-   { ostringstream os;  // allows string to act like stream to use stream operations
-	 char t = toNode + 'A';
-	 char f = fromNode + 'A';
-       os << "   "<<f << "-"<<t  << "(" << cycleID << ")" ;
-       return os.str();
-   }  
 
-   // if oneNode is an endpoint, return other endpoint
-   int getOtherEndpoint(int oneNode)
-   { if (fromNode==oneNode) return toNode;
-     assert(toNode==oneNode);
-     return fromNode;
-   }
+	 Edge(char originNode, char endNode)
+	 {
+		 set(originNode, endNode);
+	 }
+	 string toString()
+	 {
+		 ostringstream os;  // allows string to act like stream to use stream operations
+		 char t = toNode + 'A';
+		 char f = fromNode + 'A';
+		 os << "   " << f << "-" << t << "(" << cycleID << ")";
+		 return os.str();
+	 }
 
-   // Set initial values of an edge from Node f to Node t
-   void set(char f, char t)
-   {  fromNode = f -'A';
-      toNode = t-'A';
-      cycleID = -1;
-      used = false;
-      //cout << "creating Edge " << toString()<<endl;
-   }
+	 // if oneNode is an endpoint, return other endpoint
+	 int getOtherEndpoint(int oneNode)
+	 {
+		 if (fromNode == oneNode) return toNode;
+		 assert(toNode == oneNode);
+		 return fromNode;
+	 }
+
+	 // Set initial values of an edge from Node f to Node t
+	 void set(char f, char t)
+	 {
+		 fromNode = f - 'A';
+		 toNode = t - 'A';
+		 cycleID = -1;
+		 used = false;
+		 //cout << "creating Edge " << toString()<<endl;
+	 }
 };

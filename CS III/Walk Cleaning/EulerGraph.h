@@ -14,10 +14,10 @@ public:
 
 	std::string m_filename;	//just easy access for the original filename;
 
-	void generateAdjacencyMatrix(std::string filename);
+	void generateAdjacencyMatrix();
 	void computeTour(std::ostream & passFout);
 
 private:
-	//AdjacencyMatrix adjacencyMatrix; //no one else needs to access this, so we're keeping it private just for kicks and giggles
+	AdjacencyMatrix adjacencyMatrix; //no one else needs to access this, so we're keeping it private just for kicks and giggles
 };
 

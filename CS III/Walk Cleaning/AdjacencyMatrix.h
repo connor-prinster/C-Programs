@@ -6,7 +6,6 @@
 #include <fstream>
 
 #include "edge1.h"
-//#include "Node.h"
 
 class AdjacencyMatrix
 {
@@ -24,6 +23,6 @@ public:
 
 	std::vector< std::vector<int> > matrix;	//the actual adjacency vector
 	//std::vector< Node * > vectorOfNodes;	//vector of nodes
-	//std::vector< Edge * > vectorOfEdges; //vector of edges
+	std::vector< Edge * > vectorOfEdges; //vector of edges
 };
 

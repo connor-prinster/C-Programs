@@ -19,5 +19,6 @@ void main()
    EulerGraph g2("prog7C.txt");
    g2.computeTour(cout);
 
+   std::cout << "Press any key to end program...";
    std::cin.get();
 }
