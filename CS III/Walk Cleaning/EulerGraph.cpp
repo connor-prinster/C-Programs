@@ -10,10 +10,10 @@ EulerGraph::EulerGraph(std::string filename)
 void EulerGraph::generateAdjacencyMatrix()
 {
 	m_adjacencyMatrix = AdjacencyMatrix(m_filename);	//uses the custom constructor to individualize the m_adjacencyMatrix object
-	m_adjacencyMatrix.printMatrix();
+	//m_adjacencyMatrix.printMatrix();
 }
 
-void EulerGraph::computeTour(std::ostream & passFout)
+void EulerGraph::computeTour()
 {
 
 }

@@ -15,7 +15,7 @@ public:
 	std::string m_filename;	//just easy access for the original filename;
 
 	void generateAdjacencyMatrix();	//the 'm_adjacencyMatrix' object is customized from the specific file passed
-	void computeTour(std::ostream & passFout);
+	void computeTour();
 
 private:
 	AdjacencyMatrix m_adjacencyMatrix; //this m_adjacencyMatrix is first built completely generic but will then be filled with custom data in generateAdjacencyMatrix()

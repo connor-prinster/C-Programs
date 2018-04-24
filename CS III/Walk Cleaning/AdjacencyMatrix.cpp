@@ -48,6 +48,7 @@ void AdjacencyMatrix::addEdge(int origin, int destination)
 	origin -= 'A';
 	destination -= 'A';
 	matrix[origin][destination] = 1;	//says that the edge at (x, y) actually exists
+	matrix[destination][origin] = 1;	//also state that (y, x) is also technically a connection as it's undirected
 	origin += 'A';
 	destination -= 'A';
 }
