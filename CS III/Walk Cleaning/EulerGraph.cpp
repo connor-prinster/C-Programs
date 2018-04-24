@@ -28,15 +28,7 @@ void EulerGraph::computeTour()
 
 void EulerGraph::computeCycles()
 {
-	//while (!edgesAreAllUsed())	//while all the edges aren't used, keep going through this method
-	//{
-	//	for (unsigned int i = 0; i < m_adjacencyMatrix.m_vectorOfEdges.size(); i++)
-	//	{
-
-	//	}
-	//}
 	int originalNode;
-
 }
 
 bool EulerGraph::edgesAreAllUsed()
@@ -49,4 +41,15 @@ bool EulerGraph::edgesAreAllUsed()
 		}
 	}
 	return true;	//if we make it here then all the edges are used and return true
+}
+
+void EulerGraph::printTour()
+{
+	std::cout << "\nThe Euler tour for " << m_filename << " is:\n";
+	for (unsigned int i = 0; i < m_tourPath.size(); i++)
+	{
+		char tempChar = m_tourPath[i] + 'A';	//since the value in the array is stored as an int, convert it to a char for print
+		std::cout << tempChar << " -> ";	//print the char followed by a arrow to the console
+	}
+	std::cout << std::endl << std::endl;	//after the line of char's is printed out go to the second line
 }

@@ -20,6 +20,6 @@ private:
 	void generateAdjacencyMatrix();	//the 'm_adjacencyMatrix' object is customized from the specific file passed
 	void printTour();
 	std::string m_filename;	//just easy access for the original filename;
-	std::vector<char> m_tourPath;	//final tour path
+	std::vector<int> m_tourPath;	//final tour path
 	std::vector< std::vector<char> > m_vectorOfCycles;	//each subvector is a subcycle
 };
