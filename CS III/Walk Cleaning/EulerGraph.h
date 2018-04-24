@@ -10,14 +10,14 @@
 class EulerGraph
 {
 public:
-	EulerGraph(std::string filename);
+	EulerGraph(std::string filename);	//custom constructor
 
 	std::string m_filename;	//just easy access for the original filename;
 
-	void generateAdjacencyMatrix();
+	void generateAdjacencyMatrix();	//the 'm_adjacencyMatrix' object is customized from the specific file passed
 	void computeTour(std::ostream & passFout);
 
 private:
-	AdjacencyMatrix adjacencyMatrix; //no one else needs to access this, so we're keeping it private just for kicks and giggles
+	AdjacencyMatrix m_adjacencyMatrix; //this m_adjacencyMatrix is first built completely generic but will then be filled with custom data in generateAdjacencyMatrix()
 };
 
