@@ -47,10 +47,7 @@ bool EulerGraph::containsEdgeValuesWanted(int desiredValue, int index)
 	//if the desiredValue is either equal to the m_toNode OR m_fromNode, return true
 	if (desiredValue == checkOutEdgeAtIndex(index)->m_toNode || desiredValue == checkOutEdgeAtIndex(index)->m_toNode)
 		return true;
-	else
-	{
-		//the value isn't there at all, return false;
-	}
+	else	//the value isn't there at all, return false;
 		return false;
 }
 
