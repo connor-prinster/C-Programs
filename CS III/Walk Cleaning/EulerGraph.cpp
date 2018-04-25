@@ -22,13 +22,54 @@ void EulerGraph::generateAdjacencyMatrix()
 
 void EulerGraph::computeTour()
 {
-	std::cout << "Going through the tour\n";
+	std::cout << "\nGoing through the tour\n";
 	m_adjacencyMatrix.printMatrix();
 }
 
-void EulerGraph::computeCycles()
+void EulerGraph::computeCycleFromSpecificNode(int startingNode)
 {
-	int originalNode;
+	int cycleCount = 0;	//what to name the m_cycleID of the edge
+	int vectorIndexWhileCounter = 2;	//will increase throughout the while() loop
+
+	Edge * originalEdge = checkOutEdgeAtIndex(0);//the first cycle has got to be started at the first node, it's just easier
+	Edge * firstEdge = checkOutEdgeAtIndex(0); //so the firstEdge can be incremented w/out originalEdge being changed
+	Edge * nextEdge = checkOutEdgeAtIndex(1);	//initialized to the second edge for comparison
+
+	while (originalEdge != nextEdge)	//if the edges are identical, the cycle is done
+	{
+		std::vector< Edge * > tempEdgeCycleVec;
+
+		while (nextEdge->m_labeled)
+		{
+			vectorIndexWhileCounter++;
+			nextEdge = checkOutEdgeAtIndex(vectorIndexWhileCounter);
+		}
+		//if the first node's toNode == either the next edges to/from_node and it's not NULL, start doing stuff
+		if ((firstEdge->m_toNode == nextEdge->m_fromNode || firstEdge->m_toNode == nextEdge->m_toNode) && (nextEdge != NULL))// && (!firstEdge->m_labeled || !nextEdge->m_labeled))
+		{
+			firstEdge = nextEdge;
+			nextEdge = checkOutEdgeAtIndex(vectorIndexWhileCounter);
+			vectorIndexWhileCounter++;	//must increment AFTER accessing the index in this case
+		}
+		else
+		{
+			vectorIndexWhileCounter++;	//must increment BEFORE
+			nextEdge = checkOutEdgeAtIndex(vectorIndexWhileCounter);
+		}
+		
+	}
+
+
+
+}
+
+Edge * EulerGraph::checkOutEdgeAtIndex(unsigned int index)
+{
+	if (index == m_adjacencyMatrix.m_vectorOfEdges.size())	//don't want to overstep the vector, so we'll check it now
+	{
+		return NULL;	//return null otherwise so we can check it in computeCycleSpeicificNode()
+	}
+	return m_adjacencyMatrix.m_vectorOfEdges[index];	//should be able to return a valid pointer
 }
 
 bool EulerGraph::edgesAreAllUsed()
