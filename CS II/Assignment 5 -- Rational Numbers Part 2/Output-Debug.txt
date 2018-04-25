@@ -1,0 +1,20 @@
+﻿'Assignment 5 - Rational Numbers.exe' (Win32): Loaded 'C:\Users\Connor Prinster\Documents\Fall_2017\CS_1410\Assignment 5 -- Rational Numbers Part 2\Debug\Assignment 5 - Rational Numbers.exe'. Symbols loaded.
+'Assignment 5 - Rational Numbers.exe' (Win32): Loaded 'C:\Windows\SysWOW64\ntdll.dll'. Cannot find or open the PDB file.
+'Assignment 5 - Rational Numbers.exe' (Win32): Loaded 'C:\Windows\SysWOW64\kernel32.dll'. Cannot find or open the PDB file.
+'Assignment 5 - Rational Numbers.exe' (Win32): Unloaded 'C:\Windows\SysWOW64\kernel32.dll'
+'Assignment 5 - Rational Numbers.exe' (Win32): Loaded 'C:\Windows\SysWOW64\kernel32.dll'. Cannot find or open the PDB file.
+'Assignment 5 - Rational Numbers.exe' (Win32): Loaded 'C:\Windows\SysWOW64\KernelBase.dll'. Cannot find or open the PDB file.
+'Assignment 5 - Rational Numbers.exe' (Win32): Loaded 'C:\Windows\SysWOW64\msvcp140d.dll'. Cannot find or open the PDB file.
+'Assignment 5 - Rational Numbers.exe' (Win32): Loaded 'C:\Windows\SysWOW64\vcruntime140d.dll'. Cannot find or open the PDB file.
+'Assignment 5 - Rational Numbers.exe' (Win32): Loaded 'C:\Windows\SysWOW64\ucrtbased.dll'. Cannot find or open the PDB file.
+'Assignment 5 - Rational Numbers.exe' (Win32): Loaded 'C:\Windows\SysWOW64\kernel.appcore.dll'. Cannot find or open the PDB file.
+'Assignment 5 - Rational Numbers.exe' (Win32): Loaded 'C:\Windows\SysWOW64\msvcrt.dll'. Cannot find or open the PDB file.
+'Assignment 5 - Rational Numbers.exe' (Win32): Loaded 'C:\Windows\SysWOW64\rpcrt4.dll'. Cannot find or open the PDB file.
+'Assignment 5 - Rational Numbers.exe' (Win32): Loaded 'C:\Windows\SysWOW64\sspicli.dll'. Cannot find or open the PDB file.
+'Assignment 5 - Rational Numbers.exe' (Win32): Loaded 'C:\Windows\SysWOW64\cryptbase.dll'. Cannot find or open the PDB file.
+'Assignment 5 - Rational Numbers.exe' (Win32): Loaded 'C:\Windows\SysWOW64\bcryptprimitives.dll'. Cannot find or open the PDB file.
+'Assignment 5 - Rational Numbers.exe' (Win32): Loaded 'C:\Windows\SysWOW64\sechost.dll'. Cannot find or open the PDB file.
+The thread 0x1490 has exited with code 0 (0x0).
+The thread 0x3a20 has exited with code 0 (0x0).
+The thread 0xed4 has exited with code 0 (0x0).
+The program '[13188] Assignment 5 - Rational Numbers.exe' has exited with code 0 (0x0).

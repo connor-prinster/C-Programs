@@ -55,12 +55,7 @@ void EulerGraph::computeCycleFromSpecificNode(int startingNode)
 	Edge * endingEdge = NULL;
 
 	int beginningEdgeIdx = beginningEdge->m_fromNode;
-	int endingEdge = beginningEdge->m_toNode;
-
-	while (!edgesAreAllUsed())
-	{
-
-	}
+	int endingEdgeIdx = beginningEdge->m_fromNode;
 }
 
 Edge * EulerGraph::checkOutEdgeAtIndex(int index)
