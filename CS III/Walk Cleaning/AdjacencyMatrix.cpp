@@ -77,5 +77,5 @@ void AdjacencyMatrix::printMatrix()
 		}
 		std::cout << std::endl;	//finishes the line with a std::endl;
 	}
-	std::cout << "==========================================\n" << std::endl;	//signifies the end of the printMatrix();
+	std::cout << "||=========================================||\n" << std::endl;	//signifies the end of the printMatrix();
 }
