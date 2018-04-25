@@ -14,5 +14,4 @@ void main()
 	//a small asthetic to make my machine run nicely
 	std::cout << "\nPress any key to end program...";
 	std::cin.get();
-   
 }

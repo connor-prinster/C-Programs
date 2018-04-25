@@ -23,34 +23,38 @@ void EulerGraph::generateAdjacencyMatrix()
 
 void EulerGraph::computeTour()
 {
-	//std::cout << "Going through the tour\n";
 	m_adjacencyMatrix.printMatrix();
 }
 
 void EulerGraph::computeCycleFromSpecificNode(int startingNode)
 {
-	int cycleCount = 0;	//what to name the m_cycleID of the edge
-	int vectorIndexWhileCounter = 2;	//will increase throughout the while() loop
+	Edge * originalFirstNode = NULL;	//not-to-be-changed value
+	Edge * firstNode = NULL;	//will be a copy of originalFirstNode but can be changed
+	Edge * followingNode = NULL;	//will be the edge following the firstNode
+	while (!edgesAreAllUsed())	//while at least one of the edges has not been used, this'll run through
+	{
+		int indexToRetrieveFrom = 0;
+	}
+}
 
-	Edge * originalEdge = checkOutEdgeAtIndex(0);//the first cycle has got to be started at the first node, it's just easier
-	Edge * firstEdge = checkOutEdgeAtIndex(0); //so the firstEdge can be incremented w/out originalEdge being changed
-	Edge * nextEdge = checkOutEdgeAtIndex(1);	//initialized to the second edge for comparison
+bool EulerGraph::isThisEdgeUsed(int index)
+{
+	if (m_adjacencyMatrix.m_vectorOfEdges[index]->m_containedInCycle)	//if it's in a cycle, return true
+		return true;
+	else	//else the edge at this index must not be connected so return false
+		return false;
 }
 
 Edge * EulerGraph::checkOutEdgeAtIndex(unsigned int index)
 {
-	if (index == m_adjacencyMatrix.m_vectorOfEdges.size())	//don't want to overstep the vector, so we'll check it now
-	{
-		return NULL;	//return null otherwise so we can check it in computeCycleSpeicificNode()
-	}
-	return m_adjacencyMatrix.m_vectorOfEdges[index];	//should be able to return a valid pointer
+	return m_adjacencyMatrix.m_vectorOfEdges[index];	//return edge at given index
 }
 
 bool EulerGraph::edgesAreAllUsed()
 {
 	for (unsigned int i = 0; i < m_adjacencyMatrix.m_vectorOfEdges.size(); i++)	//run through all edges in the adjacencyMatrix
 	{
-		if (!m_adjacencyMatrix.m_vectorOfEdges[i]->m_used)	//if even one edge is not used, return false
+		if (!m_adjacencyMatrix.m_vectorOfEdges[i]->m_containedInCycle)	//if even one edge is not used, return false
 		{
 			return false;
 		}
