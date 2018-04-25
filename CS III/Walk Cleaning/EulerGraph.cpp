@@ -2,7 +2,6 @@
 
 EulerGraph::EulerGraph(std::string filename)
 {
-	//std::cout << "Generating the graph for " << filename << std::endl;
 	m_filename = filename;	//the filename is now hardcoded in the EulerGraph object
 	generateAdjacencyMatrix();	//generates it's custom m_matrix
 	if (m_adjacencyMatrix.m_isEuler)	//if it's Euler, computeTour()
@@ -27,6 +26,7 @@ void EulerGraph::printAllGraphData()
 
 void EulerGraph::printAllEdges()
 {
+	std::cout << "-------------------------------------\n";
 	std::cout << "List of Edges Contained in This Graph\n";
 	std::cout << "-------------------------------------\n";
 	std::cout << "There are " << m_adjacencyMatrix.m_numNodes << " nodes and " << m_adjacencyMatrix.m_numConnections << " connections\n";
