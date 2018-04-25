@@ -8,6 +8,7 @@ EulerGraph::EulerGraph(std::string filename)
 	if (m_adjacencyMatrix.m_isEuler)	//if it's Euler, computeTour()
 	{
 		computeTour();
+		printTour();
 	}
 	else	//otherwise, don't compute the tour and cout instead
 	{
@@ -22,7 +23,7 @@ void EulerGraph::generateAdjacencyMatrix()
 
 void EulerGraph::computeTour()
 {
-	std::cout << "\nGoing through the tour\n";
+	//std::cout << "Going through the tour\n";
 	m_adjacencyMatrix.printMatrix();
 }
 
@@ -34,33 +35,6 @@ void EulerGraph::computeCycleFromSpecificNode(int startingNode)
 	Edge * originalEdge = checkOutEdgeAtIndex(0);//the first cycle has got to be started at the first node, it's just easier
 	Edge * firstEdge = checkOutEdgeAtIndex(0); //so the firstEdge can be incremented w/out originalEdge being changed
 	Edge * nextEdge = checkOutEdgeAtIndex(1);	//initialized to the second edge for comparison
-
-	while (originalEdge != nextEdge)	//if the edges are identical, the cycle is done
-	{
-		std::vector< Edge * > tempEdgeCycleVec;
-
-		while (nextEdge->m_labeled)
-		{
-			vectorIndexWhileCounter++;
-			nextEdge = checkOutEdgeAtIndex(vectorIndexWhileCounter);
-		}
-		//if the first node's toNode == either the next edges to/from_node and it's not NULL, start doing stuff
-		if ((firstEdge->m_toNode == nextEdge->m_fromNode || firstEdge->m_toNode == nextEdge->m_toNode) && (nextEdge != NULL))// && (!firstEdge->m_labeled || !nextEdge->m_labeled))
-		{
-			firstEdge = nextEdge;
-			nextEdge = checkOutEdgeAtIndex(vectorIndexWhileCounter);
-			vectorIndexWhileCounter++;	//must increment AFTER accessing the index in this case
-		}
-		else
-		{
-			vectorIndexWhileCounter++;	//must increment BEFORE
-			nextEdge = checkOutEdgeAtIndex(vectorIndexWhileCounter);
-		}
-		
-	}
-
-
-
 }
 
 Edge * EulerGraph::checkOutEdgeAtIndex(unsigned int index)
@@ -86,11 +60,13 @@ bool EulerGraph::edgesAreAllUsed()
 
 void EulerGraph::printTour()
 {
-	std::cout << "\nThe Euler tour for " << m_filename << " is:\n";
+	std::cout << "The Euler tour for " << m_filename << " is: ";
 	for (unsigned int i = 0; i < m_tourPath.size(); i++)
 	{
 		char tempChar = m_tourPath[i] + 'A';	//since the value in the array is stored as an int, convert it to a char for print
 		std::cout << tempChar << " -> ";	//print the char followed by a arrow to the console
 	}
-	std::cout << std::endl << std::endl;	//after the line of char's is printed out go to the second line
+	std::cout << std::endl;
+	std::cout << "=================================\n---------------------------------\n=================================\n";
+	std::cout << std::endl;	//after the line of char's is printed out go to the second line
 }

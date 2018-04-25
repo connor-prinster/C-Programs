@@ -20,7 +20,7 @@ private:
 	bool edgesAreAllUsed();
 	void generateAdjacencyMatrix();	//the 'm_adjacencyMatrix' object is customized from the specific file passed
 	void printTour();
-	Edge * getEdgeFromMatrix(unsigned int index);
+	Edge * checkOutEdgeAtIndex(unsigned int index);
 	//int getOtherEndpointFromMatrix(int oneNode);
 	std::string m_filename;	//just easy access for the original filename;
 	std::vector<int> m_tourPath;	//final tour path
