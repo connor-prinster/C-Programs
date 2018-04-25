@@ -22,8 +22,9 @@ private:
 	void printTour();
 	bool isThisEdgeUsed(int index);
 	bool edgesAreAllUsed();
+	bool containsEdgeValuesWanted(int desiredValue, int index);
 
-	Edge * checkOutEdgeAtIndex(unsigned int index);
+	Edge * checkOutEdgeAtIndex(int index);
 	//int getOtherEndpointFromMatrix(int oneNode);
 	std::string m_filename;	//just easy access for the original filename;
 	std::vector<int> m_tourPath;	//final tour path
