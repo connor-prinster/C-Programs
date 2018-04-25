@@ -17,6 +17,9 @@ EulerGraph::EulerGraph(std::string filename)
 
 void EulerGraph::printAllGraphData()
 {
+	std::cout << "||==============================||\n";
+	std::cout << "|| This is a proper Euler graph ||\n";
+	std::cout << "||==============================||\n";
 	computeTour();
 	printAllEdges();
 	printTour();
@@ -105,6 +108,6 @@ void EulerGraph::printTour()
 		std::cout << tempChar << " -> ";	//print the char followed by a arrow to the console
 	}
 	std::cout << std::endl;
-	std::cout << "=================================\n---------------------------------\n=================================\n";
+	std::cout << "==================================================================\n------------------------------------------------------------------\n==================================================================\n";
 	std::cout << std::endl;	//after the line of char's is printed out go to the second line
 }
