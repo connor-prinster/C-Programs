@@ -16,6 +16,7 @@ EulerGraph::EulerGraph(std::string filename)
 
 void EulerGraph::printAllGraphData()
 {
+	std::cout << "  Generating Data for " << m_filename << std::endl;
 	std::cout << "||==============================||\n";
 	std::cout << "|| This is a proper Euler graph ||\n";
 	std::cout << "||==============================||\n";
@@ -26,9 +27,9 @@ void EulerGraph::printAllGraphData()
 
 void EulerGraph::printAllEdges()
 {
-	std::cout << "-------------------------------------\n";
-	std::cout << "List of Edges Contained in This Graph\n";
-	std::cout << "-------------------------------------\n";
+	std::cout << "|---------------------------------------|\n";
+	std::cout << "| List of Edges Contained in This Graph |\n";
+	std::cout << "|---------------------------------------|\n";
 	std::cout << "There are " << m_adjacencyMatrix.m_numNodes << " nodes and " << m_adjacencyMatrix.m_numConnections << " connections\n";
 	for (unsigned int i = 0; i < m_adjacencyMatrix.m_vectorOfEdges.size(); i++)
 	{
@@ -49,37 +50,17 @@ void EulerGraph::computeTour()
 
 void EulerGraph::computeCycleFromSpecificNode(int startingNode)
 {
-	std::vector< Edge * > tempEdgeVector;
-	Edge * originalFirstNode = NULL;	//not-to-be-changed value
-	Edge * firstNode = NULL;	//will be a copy of originalFirstNode but can be changed
-	Edge * followingNode = NULL;	//will be the edge following the firstNode
-	while (!edgesAreAllUsed())	//while at least one of the edges has not been used, this'll run through
+	Edge * originalEdge = checkOutEdgeAtIndex(0);
+	Edge * beginningEdge = NULL;
+	Edge * endingEdge = NULL;
+
+	int beginningEdgeIdx = beginningEdge->m_fromNode;
+	int endingEdge = beginningEdge->m_toNode;
+
+	while (!edgesAreAllUsed())
 	{
-		int indexToRetrieveFrom = 0;	//start at the beginning
-		while (isThisEdgeUsed(indexToRetrieveFrom) && indexToRetrieveFrom < m_adjacencyMatrix.m_vectorOfEdges.size())	//check if the edge at the index is unused, if so, move on, otherwise keep increasing index && check that the index isn't too high
-		{
-			indexToRetrieveFrom++;
-		}
+
 	}
-}
-
-bool EulerGraph::containsEdgeValuesWanted(int desiredValue, int index)
-{	
-	//if the desiredValue is either equal to the m_toNode OR m_fromNode, return true
-	if (desiredValue == checkOutEdgeAtIndex(index)->m_toNode || desiredValue == checkOutEdgeAtIndex(index)->m_toNode)
-		return true;
-	else	//the value isn't there at all, return false;
-		return false;
-}
-
-bool EulerGraph::isThisEdgeUsed(int index)
-{
-	if (index >= m_adjacencyMatrix.m_vectorOfEdges.size())
-		return true;
-	if (m_adjacencyMatrix.m_vectorOfEdges[index]->m_containedInCycle)	//if it's in a cycle, return true
-		return true;
-	else	//else the edge at this index must not be connected so return false
-		return false;
 }
 
 Edge * EulerGraph::checkOutEdgeAtIndex(int index)
