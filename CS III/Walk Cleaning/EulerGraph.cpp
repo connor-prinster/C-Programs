@@ -8,12 +8,25 @@ EulerGraph::EulerGraph(std::string filename)
 	if (m_adjacencyMatrix.m_isEuler)	//if it's Euler, computeTour()
 	{
 		computeTour();
+		printAllEdges();
 		printTour();
 	}
 	else	//otherwise, don't compute the tour and cout instead
 	{
 		std::cout << "No Euler Tour Available\n";
 	}
+}
+
+void EulerGraph::printAllEdges()
+{
+	std::cout << "List of Edges Contained in This Graph\n";
+	std::cout << "-------------------------------------\n";
+	std::cout << "There are " << m_adjacencyMatrix.m_numNodes << " nodes and " << m_adjacencyMatrix.m_numConnections << " connections\n";
+	for (unsigned int i = 0; i < m_adjacencyMatrix.m_vectorOfEdges.size(); i++)
+	{
+		std::cout << m_adjacencyMatrix.m_vectorOfEdges[i]->toString() << std::endl;
+	}
+	std::cout << std::endl;
 }
 
 void EulerGraph::generateAdjacencyMatrix()

@@ -65,11 +65,12 @@ void AdjacencyMatrix::addEdge(int origin, int destination)
 
 void AdjacencyMatrix::printMatrix()
 {
-	std::cout << "//======================================\\\\  \n";		//just a typical header that I personally think makes things more readable
-	std::cout << "||   Current State of Adjacency Matrix: || \n";
-	std::cout << "\\\\======================================//  \n";
+	std::cout << "//==========================================\\\\  \n";		//just a typical header that I personally think makes things more readable
+	std::cout << "||    Current State of Adjacency Matrix:    || \n";
+	std::cout << "\\\\=========================================//  \n";
 	for (unsigned int i = 0; i < m_matrix.size(); i++)	//prints the outer vector
 	{	
+		std::cout << "   ";
 		for (unsigned int j = 0; j < m_matrix[i].size(); j++)		//prints the inner vector
 		{
 			std::cout << m_matrix[i][j] << " ";	//will printMatrix completely horizontally with a space between bits of data

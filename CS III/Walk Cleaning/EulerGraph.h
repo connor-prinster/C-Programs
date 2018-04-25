@@ -23,9 +23,9 @@ private:
 	bool isThisEdgeUsed(int index);
 	bool edgesAreAllUsed();
 	bool containsEdgeValuesWanted(int desiredValue, int index);
+	void printAllEdges();
 
 	Edge * checkOutEdgeAtIndex(int index);
-	//int getOtherEndpointFromMatrix(int oneNode);
 	std::string m_filename;	//just easy access for the original filename;
 	std::vector<int> m_tourPath;	//final tour path
 	std::vector< std::vector<char> > m_vectorOfCycles;	//each subvector is a subcycle
