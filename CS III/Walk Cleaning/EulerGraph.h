@@ -6,7 +6,6 @@
 #include <fstream>
 
 #include "AdjacencyMatrix.h"
-//#include "edge1.h"
 
 class EulerGraph
 {
@@ -16,6 +15,7 @@ public:
 private:
 	AdjacencyMatrix m_adjacencyMatrix; //this m_adjacencyMatrix is first built completely generic but will then be filled with custom data in generateAdjacencyMatrix()
 
+	void printAllGraphData();
 	void computeTour();	//the meat of the assignment
 	void computeCycleFromSpecificNode(int startingNode);
 	void generateAdjacencyMatrix();	//the 'm_adjacencyMatrix' object is customized from the specific file passed

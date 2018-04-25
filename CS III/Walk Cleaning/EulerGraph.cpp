@@ -7,14 +7,19 @@ EulerGraph::EulerGraph(std::string filename)
 	generateAdjacencyMatrix();	//generates it's custom m_matrix
 	if (m_adjacencyMatrix.m_isEuler)	//if it's Euler, computeTour()
 	{
-		computeTour();
-		printAllEdges();
-		printTour();
+		printAllGraphData();
 	}
 	else	//otherwise, don't compute the tour and cout instead
 	{
 		std::cout << "No Euler Tour Available\n";
 	}
+}
+
+void EulerGraph::printAllGraphData()
+{
+	computeTour();
+	printAllEdges();
+	printTour();
 }
 
 void EulerGraph::printAllEdges()
