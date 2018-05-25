@@ -1,0 +1,46 @@
+// Makefile runner
+// Runs "make" in the CWD specified in the runner's console, then executes a program called "main"
+
+// Install the new runner:
+// -----------------------
+// 0) Click the "Run" button to open the runner console
+// 1) Select "New Runner" in the runner selector in the runner console
+// 2) Replace the contents of "My Runner.run" with this file
+// 3) Save the file with the name "Makefile.run"
+// 4) Select "Makefile" in the runner selector in the runner console
+// 5) Click the "Run" button in the runner console to build and run your project
+//
+// Make the new runner the default for your workspace:
+// ---------------------------------------------------
+// 0) Enter a name for your runner configuration in the 1st grey box at the top
+//    of the runner console
+// 1) Click the gear icon in the upper-right corner of your workspace to open the
+//    workspace preferences
+// 2) In box headed with the columns "Name", "Command", "CWD", "Debug", "Runner", "Default",
+//    click the row which has the name of your runner configuration
+// 3) Click the "Set as Default" label
+//
+// For more information see https://docs.c9.io/custom_runners.html
+
+{
+  "script": [
+    "set -e",
+    "printf \"\\e[1;34mRunning make in $PWD\\e[0m\n\"",
+    
+    "make -j",
+
+    // "printf \"\\e[1;32mfile='$file'\\e[0m\n\"",
+    // "printf \"\\e[1;32mfile_path='$file_path'\\e[0m\n\"",
+    "if [ \"$debug\" == true ]; then ",
+    "    node $HOME/.c9/bin/c9gdbshim.js $file_path/main",
+    "else",
+    "    stdbuf -o 0 -e 0 $file_path/main $args",
+    "fi"
+  ],
+
+  // "info": "file_path: $file_path\nfile: $file\nargs: $args\nfile_name: $file_name\nproject_path: $project_path\nfile_extension: $file_extension\nfile_base_name: $file_base_name\ncommand: $command\n",
+  "debugger": "gdb",
+  "$debugDefaultState": false,
+  "env": {},
+  "selector": "^.*\\.(cpp|cc)$"
+}

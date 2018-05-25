@@ -1,0 +1,2 @@
+area_fips	annual_avg_emplvl	total_annual_wages
+11001	756646	67705586968

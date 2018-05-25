@@ -1,0 +1,9 @@
+*.o
+*.d
+tags
+cscope.files
+cscope.in.out
+cscope.out
+cscope.po.out
+main
+
